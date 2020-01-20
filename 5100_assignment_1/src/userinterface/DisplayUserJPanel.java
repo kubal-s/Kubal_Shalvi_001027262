@@ -25,7 +25,8 @@ public class DisplayUserJPanel extends javax.swing.JPanel {
     public DisplayUserJPanel(Person person) {
         initComponents();
         this.person = person;
-        		
+        	
+        
 		demographicInfoJPanel = new DemographicInfoJPanel();
 		addressJPanel = new AddressJPanel();
 		checkingAccountJPanel = new CheckingAccountJPanel();
@@ -35,7 +36,7 @@ public class DisplayUserJPanel extends javax.swing.JPanel {
 		medicalRecordJPanel = new MedicalRecordJPanel();
 		
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-		
+		try {
 		demographicInfoJPanel.getFirstNameTxtField().setText(person.getFirstName());
 		demographicInfoJPanel.getLastNameTxtField().setText(person.getLastName());
 		demographicInfoJPanel.getPhoneNumberTxtField().setText(person.getPhoneNumber());
@@ -44,7 +45,7 @@ public class DisplayUserJPanel extends javax.swing.JPanel {
 		demographicInfoJPanel.getHeightTxtField().setText(person.getHeight());
 		demographicInfoJPanel.getWeightTxtField().setText(person.getWeight());
 		demographicInfoJPanel.getSocialSecurityNumberTxtField().setText(person.getSocialSecurityNo());
-		
+                
 		
 		this.add(demographicInfoJPanel);
 		
@@ -57,7 +58,14 @@ public class DisplayUserJPanel extends javax.swing.JPanel {
 		demographicInfoJPanel.getWeightTxtField().setEditable(false);
 		demographicInfoJPanel.getSocialSecurityNumberTxtField().setEditable(false);;
 		
-		addressJPanel.getCityTxtField().setText(person.getAddress().getCity());
+                }
+                catch(Exception e){
+                    this.add(demographicInfoJPanel);
+                    System.out.println("No demographic information");
+                }
+		
+                try{
+                addressJPanel.getCityTxtField().setText(person.getAddress().getCity());
 		addressJPanel.getStateTxtField().setText(person.getAddress().getState());
 		addressJPanel.getStreetAddressTxtField().setText(person.getAddress().getStreetAddress());
 		addressJPanel.getZipCodeTxtField().setText(person.getAddress().getZipCode());
@@ -69,35 +77,59 @@ public class DisplayUserJPanel extends javax.swing.JPanel {
 		addressJPanel.getStreetAddressTxtField().setEditable(false);
 		addressJPanel.getZipCodeTxtField().setEditable(false);
 		
-		this.add(savingAccountJPanel);
-	
-		savingAccountJPanel.getAccountBalanceTxtField().setEditable(false);
+                }
+                catch(Exception e){
+                    this.add(addressJPanel);
+                    System.out.println("No address information");
+                }
+                try{
+                savingAccountJPanel.getAccountBalanceTxtField().setText(person.getSavingAccount().getAccountBalance());
+		savingAccountJPanel.getAccountTypeTxtField().setText(person.getSavingAccount().getAccountType());
+		savingAccountJPanel.getAccountNumberTxtField().setText(person.getSavingAccount().getBankAccountNumber());
+		savingAccountJPanel.getBankNameTxtField().setText(person.getSavingAccount().getBankName());
+		savingAccountJPanel.getRoutingNumberTxtField().setText(person.getSavingAccount().getBankRoutingNumber());
+                
+                this.add(savingAccountJPanel);
+                                
+                savingAccountJPanel.getAccountBalanceTxtField().setEditable(false);
 		savingAccountJPanel.getAccountTypeTxtField().setEditable(false);
 		savingAccountJPanel.getAccountNumberTxtField().setEditable(false);
 		savingAccountJPanel.getBankNameTxtField().setEditable(false);
 		savingAccountJPanel.getRoutingNumberTxtField().setEditable(false);
-		
                 
+
+                }
+                catch(Exception e){
+                    this.add(savingAccountJPanel);
+                    System.out.println("No savings account information");
+                }
+
+		
+                try{
                 checkingAccountJPanel.getAccountBalanceTxtField().setText(person.getCheckingAccount().getAccountBalance());
 		checkingAccountJPanel.getAccountTypeTxtField().setText(person.getCheckingAccount().getAccountType());
 		checkingAccountJPanel.getAccountNumberTxtField().setText(person.getCheckingAccount().getBankAccountNumber());
 		checkingAccountJPanel.getBankNameTxtField().setText(person.getCheckingAccount().getBankName());
 		checkingAccountJPanel.getRoutingNumberTxtField().setText(person.getCheckingAccount().getBankRoutingNumber());
 		
-		this.add(checkingAccountJPanel);
-		
-		checkingAccountJPanel.getAccountBalanceTxtField().setEditable(false);
+                this.add(checkingAccountJPanel);
+                
+                checkingAccountJPanel.getAccountBalanceTxtField().setEditable(false);
 		checkingAccountJPanel.getAccountTypeTxtField().setEditable(false);
 		checkingAccountJPanel.getAccountNumberTxtField().setEditable(false);
 		checkingAccountJPanel.getBankNameTxtField().setEditable(false);
 		checkingAccountJPanel.getRoutingNumberTxtField().setEditable(false);
 		
-		savingAccountJPanel.getAccountBalanceTxtField().setText(person.getSavingAccount().getAccountBalance());
-		savingAccountJPanel.getAccountTypeTxtField().setText(person.getSavingAccount().getAccountType());
-		savingAccountJPanel.getAccountNumberTxtField().setText(person.getSavingAccount().getBankAccountNumber());
-		savingAccountJPanel.getBankNameTxtField().setText(person.getSavingAccount().getBankName());
-		savingAccountJPanel.getRoutingNumberTxtField().setText(person.getSavingAccount().getBankRoutingNumber());
-                
+                }
+                catch(Exception e){
+                    this.add(checkingAccountJPanel);
+                    System.out.println("No checking account information");
+                }
+		
+
+		
+		
+                try{
 		driversLicenseJPanel.getLicenseNumberTxtField().setText(person.getDriversLicense().getLicenseNumber());
 		driversLicenseJPanel.getDateOfExpirationTxtField().setText(person.getDriversLicense().getDateOfExpiration());
 		driversLicenseJPanel.getDateOfIssueTxtField().setText(person.getDriversLicense().getDateOfIssue());
@@ -112,9 +144,13 @@ public class DisplayUserJPanel extends javax.swing.JPanel {
 		driversLicenseJPanel.getDateOfIssueTxtField().setEditable(false);
 		driversLicenseJPanel.getBloodTypeTxtField().setEditable(false);
                 driversLicenseJPanel.getAddDriverLicenseImg().setVisible(false);
- 
+                }
+                catch(Exception e){
+                    this.add(driversLicenseJPanel);
+                    System.out.println("No drivers license information");
+                }
    
-		
+		try{
 		medicalRecordJPanel.getMedicalRecordNumberTxtField().setText(person.getMedicalRecord().getMedicalRecordNumber());
 		medicalRecordJPanel.getAlergy1TxtField().setText(person.getMedicalRecord().getAlergy1());
 		medicalRecordJPanel.getAlergy2TxtField().setText(person.getMedicalRecord().getAlergy2());
@@ -126,13 +162,24 @@ public class DisplayUserJPanel extends javax.swing.JPanel {
 		medicalRecordJPanel.getAlergy1TxtField().setEditable(false);
 		medicalRecordJPanel.getAlergy2TxtField().setEditable(false);
 		medicalRecordJPanel.getAlergy3TxtField().setEditable(false);
+                
+                }
+                catch(Exception e){
+                    this.add(medicalRecordJPanel);
+                    System.out.println("No medicalrecord information");
+                }
     }
 
     
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+        try{
         g.drawImage(person.getDriversLicense().getDriversLicenseImage(), 100, 100, this); 
+        }
+        catch(Exception e){
+            System.out.println("no drivers license image uploaded");
+        }
     }
     
     /**

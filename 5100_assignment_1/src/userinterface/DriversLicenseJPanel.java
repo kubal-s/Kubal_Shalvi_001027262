@@ -220,8 +220,18 @@ public class DriversLicenseJPanel extends javax.swing.JPanel {
     
     @Override
     protected void paintComponent(Graphics g) {
+        
         super.paintComponent(g);
-        if(displayLicense) g.drawImage(driversLicense.getDriversLicenseImage(), 800, 50, this); 
+        try{
+            if(displayLicense) {
+                addDriverLicenseImg.setVisible(false);
+                g.drawImage(driversLicense.getDriversLicenseImage(), 800, 50, this);
+            } 
+        }
+        catch(Exception e){
+            addDriverLicenseImg.setVisible(false);
+            System.out.println("No image uploaded");
+        }
         
     }
     
