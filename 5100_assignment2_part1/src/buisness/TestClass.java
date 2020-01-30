@@ -78,20 +78,6 @@ public class TestClass {
             flag = objIn.nextInt();
             
         }while(flag == 1);
-        //System.out.println("Enter age in months:");
-        //int age = objIn.nextInt();
-        
-        
-        
-        patient1.setAge(12);
-        patient1.setVitalSigns(vitalSigns1);
-        patient1.getVitalSigns().setHeartRate(110);
-        patient1.getVitalSigns().setRespiratoryRate(20);
-        patient1.getVitalSigns().setSystolicBloodPressure(110);
-        patient1.getVitalSigns().setWeightInKgs(10);
-        
-        //assignment part1
-        System.out.println(patient1.isPatientNormal());
 
         
     }
