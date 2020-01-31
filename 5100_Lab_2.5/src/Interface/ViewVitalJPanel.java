@@ -309,7 +309,7 @@ public class ViewVitalJPanel extends javax.swing.JPanel {
             populateTable();
             
             setAllEnabled(false);
-     
+            JOptionPane.showMessageDialog(null, "Updated selected row");
             confirmBtn.setVisible(false);
         }
         else{
