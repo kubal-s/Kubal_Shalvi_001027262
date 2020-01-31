@@ -25,6 +25,7 @@ public class ViewVitalJPanel extends javax.swing.JPanel {
     public ViewVitalJPanel(VitalSignHistory vsh) {
         initComponents();
         this.vsh = vsh;
+        confirmBtn.setVisible(false);
         populateTable();
         
         tempTextField.setEnabled(false);
@@ -177,16 +178,15 @@ public class ViewVitalJPanel extends javax.swing.JPanel {
                         .addGap(17, 17, 17)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 502, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(detailButton, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
-                                .addComponent(deleteButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(updateBtn))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(detailButton, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
+                            .addComponent(deleteButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(updateBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(13, 13, 13))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(confirmBtn)
-                .addGap(43, 43, 43))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -223,7 +223,7 @@ public class ViewVitalJPanel extends javax.swing.JPanel {
                     .addComponent(dateTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(confirmBtn)
+                .addComponent(confirmBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(210, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -277,8 +277,10 @@ public class ViewVitalJPanel extends javax.swing.JPanel {
 
     private void updateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateBtnActionPerformed
         // TODO add your handling code here:
+       
         int selectedRow = vitalSignsTable.getSelectedRow();
         if(selectedRow >= 0){
+            confirmBtn.setVisible(true);
             setAllEnabled(true);
         
             VitalSigns vs = (VitalSigns) vitalSignsTable.getValueAt(selectedRow, 0);
@@ -286,10 +288,12 @@ public class ViewVitalJPanel extends javax.swing.JPanel {
             bloodTextField.setText(vs.getBloodPressure() + "");
             pulseTextField.setText(vs.getPulse() + "");
             dateTextField.setText(vs.getDate());
+            
         }
         else{
             JOptionPane.showMessageDialog(null, "Please select a row");
         }
+        
     }//GEN-LAST:event_updateBtnActionPerformed
 
     private void confirmBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmBtnActionPerformed
@@ -305,6 +309,8 @@ public class ViewVitalJPanel extends javax.swing.JPanel {
             populateTable();
             
             setAllEnabled(false);
+     
+            confirmBtn.setVisible(false);
         }
         else{
             JOptionPane.showMessageDialog(null, "Please select a row");
