@@ -32,14 +32,15 @@ public class TestClass {
             int heartRate;
             int sBloodPresur;
             double weight;
+            String date;
             
             int weightFlag;
             
             boolean isNewPatient = false;
             System.out.println("Enter full name of person:");
             fullName = objIn.nextLine();
-            System.out.println("Enter age in months:");
-            age = objIn.nextInt();
+            System.out.println("Enter birth date in dd-mm-yyyy:");
+            date = objIn.nextLine();
             
             
             System.out.println("Enter respiratory rate:");
@@ -78,14 +79,14 @@ public class TestClass {
                 }
                 vsh.addToVitalSignsHistory(vs);
                 newp.setFullName(fullName);
-                newp.setAge(age);
+                newp.setDateOfBirth(date);
                 patientsInHospital.add(newp);
                 System.out.println( newp.isPatientNormal()?"\nNormal":"\nAbnormal");
              }
             else{
                 Patient newp = new Patient();
                 for(Patient p : patientsInHospital){                   
-                    if(p.getFullName().equals(fullName) && p.getAge()==age){
+                    if(p.getFullName().equals(fullName) && p.getDateOfBirth().equals(date)){
                         VitalSigns vs = p.getVitalSignsHistory().createVitalSigns();
                         vs.setHeartRate(heartRate);
                         vs.setRespiratoryRate(respRate);
@@ -117,7 +118,7 @@ public class TestClass {
                         }
                         vsh.addToVitalSignsHistory(vs);
                         newp.setFullName(fullName);
-                        newp.setAge(age);
+                        newp.setDateOfBirth(date);
                         System.out.println( newp.isPatientNormal()?"\nNormal":"\nAbnormal");
                         isNewPatient = true;
                         break;
@@ -148,28 +149,32 @@ public class TestClass {
       System.out.println("Enter the index of vital sign to test:");
       int indexVS = objIn.nextInt();
       
-      System.out.println("Enter age:");
-      int patientAge = objIn.nextInt();
-      
       objIn.nextLine();
+      System.out.println("Enter birth date in dd-mm-yyyy:");
+      String date1 = objIn.nextLine();
+      
+
       System.out.println("Enter vital sign to test from following list\n-> Respiratory rate\n -> Heart rate\n -> Systolic blood pressure\n -> Weight in kilos \n -> Weight in pounds :");
       String vsToTest = objIn.nextLine();
       
+      boolean foundPatientFag = false;
       for(Patient p: patientsInHospital){
-          if(p.getFullName().equals(patientName) && p.getAge() == patientAge){
+          if(p.getFullName().equals(patientName) && p.getDateOfBirth().equals(date1)){
               boolean val = p.isThisVitalSignNormal(vsToTest,indexVS);
               if(val == true){
-                  System.out.println(vsToTest +" Vital Sign falls in normal range\n\n");
+                  System.out.println(vsToTest +" Vital Sign falls in normal range\n");
               }
               else{
-                  System.out.println(vsToTest +" Vital Sign falls in abnormal range\n\n");
+                  System.out.println(vsToTest +" Vital Sign falls in abnormal range\n");
               }
               p.isPatientNormal();
-             
+             foundPatientFag = true;
+             break;
           }
-          else{
-              System.out.println("No such patient exist\n");
-          }
+
+      }
+      if(!foundPatientFag){
+          System.out.println("No such patient exist\n");
       }
     }
     

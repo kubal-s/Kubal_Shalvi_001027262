@@ -92,8 +92,9 @@ public class VitalSigns {
     
 
     public boolean isNormalRespiratoryRate(Patient patient){
-        int age,respiratoryRate;
-        age = patient.getAge();
+        long age;
+        int respiratoryRate;
+        age = patient.getAgeInMonth();
         respiratoryRate = this.getRespiratoryRate();
         if(age < 1 && respiratoryRate >=30 && respiratoryRate <= 50 ){
             return true;
@@ -108,8 +109,9 @@ public class VitalSigns {
     }
     
     public boolean isNormalHeartRate(Patient patient){
-        int age,heartRate;
-        age = patient.getAge();
+        long age;
+        int heartRate;
+        age = patient.getAgeInMonth();
         heartRate = this.getHeartRate();
         if(age < 1 && heartRate >= 120 && heartRate <= 160){
             return true;
@@ -132,7 +134,7 @@ public class VitalSigns {
         return false;
     }
     public boolean isNormalSystolicBloodPressure(Patient patient){
-        int age = patient.getAge();
+        long age = patient.getAgeInMonth();
         int sBloodPressure = this.getSystolicBloodPressure();
         if(age < 1 && sBloodPressure >= 50 && sBloodPressure <= 70){
             return true;
@@ -152,9 +154,9 @@ public class VitalSigns {
         return false;
     }
     public boolean isNormalWeightInKilos(Patient patient){
-        int age;
+        long age;
         double weightInKg;
-        age = patient.getAge();
+        age = patient.getAgeInMonth();
         weightInKg = this.getWeightInKgs();
         if(age < 1 && weightInKg >= 2 && weightInKg <= 3){
             return true;
@@ -171,15 +173,15 @@ public class VitalSigns {
         else if(age >= 72 && age < 156 && weightInKg >= 20 && weightInKg <= 42){
             return true;
         }
-        else if(age >= 156 && weightInKg >= 50){
+        else if(age >= 156 && weightInKg > 50){
             return true;
         }
         return false;
     }
     public boolean isNormalWeightInPounds(Patient patient){       
-        int age;
+        long age;
         double weightInPounds;
-        age = patient.getAge();
+        age = patient.getAgeInMonth();
         weightInPounds = this.getWeightInPounds();
         if(age < 1 && weightInPounds >= 4.5 && weightInPounds <= 7){
             return true;
@@ -196,7 +198,7 @@ public class VitalSigns {
         else if(age >= 72 && age < 156 && weightInPounds >= 41 && weightInPounds <= 92){
             return true;
         }
-        else if(age >= 156 && weightInPounds >= 100){
+        else if(age >= 156 && weightInPounds > 110){
             return true;
         }
         return false;
