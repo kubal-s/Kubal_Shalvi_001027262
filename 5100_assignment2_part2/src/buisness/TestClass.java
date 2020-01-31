@@ -80,6 +80,7 @@ public class TestClass {
                 newp.setFullName(fullName);
                 newp.setAge(age);
                 patientsInHospital.add(newp);
+                System.out.println( newp.isPatientNormal()?"\nNormal":"\nAbnormal");
              }
             else{
                 Patient newp = new Patient();
@@ -96,6 +97,7 @@ public class TestClass {
                             vs.setWeightInPounds(weight);
                         }
                         p.getVitalSignsHistory().addToVitalSignsHistory(vs);
+                        System.out.println( p.isPatientNormal()?"\nNormal":"\nAbnormal");
                         isNewPatient = false;
                         break;
                     }
@@ -116,6 +118,7 @@ public class TestClass {
                         vsh.addToVitalSignsHistory(vs);
                         newp.setFullName(fullName);
                         newp.setAge(age);
+                        System.out.println( newp.isPatientNormal()?"\nNormal":"\nAbnormal");
                         isNewPatient = true;
                         break;
                     }
@@ -123,7 +126,7 @@ public class TestClass {
                 if(isNewPatient)    
                     patientsInHospital.add(newp);
             }
-
+            
             System.out.println("Enter 1 to check more patients:");
             flag = objIn.nextInt();
             objIn.nextLine();
