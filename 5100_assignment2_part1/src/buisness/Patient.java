@@ -42,25 +42,35 @@ public class Patient {
     public void setVitalSigns(VitalSigns vitalSigns) {
         this.vitalSigns = vitalSigns;
     }
- 
 
-    
-    public long getAge() {
+    public String getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(String dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+        this.ageInMonth = calculateAgeInMonths(dateOfBirth);
+    }
+
+    public long getAgeInMonth() {
         return ageInMonth;
     }
 
-    public void setAge(long ageInMonth) {
+    public void setAgeInMonth(long ageInMonth) {
         this.ageInMonth = ageInMonth;
     }
+ 
 
    
     public boolean isPatientNormal(){
         VitalSigns vs = new VitalSigns();
-       // System.out.println("vs.isNormalRespiratoryRate(this)"+vs.isNormalRespiratoryRate(this));
-       // System.out.println("vs.isNormalHeartRate(this)"+vs.isNormalHeartRate(this));
-       // System.out.println("vs.isNormalSystolicBloodPressure(this)"+vs.isNormalSystolicBloodPressure(this));
-       // System.out.println("vs.isNormalWeightInKilos(this)"+vs.isNormalWeightInKilos(this));
-       // System.out.println("vs.isNormalWeightInPounds(this)"+vs.isNormalWeightInPounds(this));
+        System.out.println("Tells if Report is normal or not based on latest Vital Signs Record!");
+        System.out.println("isNormalRespiratoryRate(this)"+vs.isNormalRespiratoryRate(this));
+        System.out.println("isNormalHeartRate(this)"+vs.isNormalHeartRate(this));
+        System.out.println("isNormalSystolicBloodPressure(this)"+vs.isNormalSystolicBloodPressure(this));
+        System.out.println("isNormalWeightInKilos(this)"+vs.isNormalWeightInKilos(this));
+        System.out.println("isNormalWeightInPounds(this)"+vs.isNormalWeightInPounds(this));
+
         
         if(vs.isNormalRespiratoryRate(this)&&
            vs.isNormalHeartRate(this)&&
@@ -92,7 +102,7 @@ public class Patient {
         int monthsDiff = today.get(Calendar.MONTH) - birthDay.get(Calendar.MONTH);
         long ageInMonths = yearsInBetween*12 + monthsDiff; 
         long age = yearsInBetween;
-        this.setAge(ageInMonth);
+        this.setAgeInMonth(ageInMonth);
         return ageInMonths;
     }
  
