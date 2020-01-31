@@ -82,7 +82,8 @@ public class VitalSigns {
     
     
     public boolean isNormalRespiratoryRate(Patient patient){
-        int age,respiratoryRate;
+        long age;
+        int respiratoryRate;
         age = patient.getAge();
         respiratoryRate = patient.getVitalSigns().getRespiratoryRate();
         if(age < 1 && respiratoryRate >=30 && respiratoryRate <= 50 ){
@@ -97,7 +98,8 @@ public class VitalSigns {
         return false;
     }
     public boolean isNormalHeartRate(Patient patient){
-        int age,heartRate;
+        long age;
+        int heartRate;
         age = patient.getAge();
         heartRate = patient.getVitalSigns().getHeartRate();
         if(age < 1 && heartRate >= 120 && heartRate <= 160){
@@ -121,7 +123,7 @@ public class VitalSigns {
         return false;
     }
     public boolean isNormalSystolicBloodPressure(Patient patient){
-        int age = patient.getAge();
+        long age = patient.getAge();
         int sBloodPressure = patient.getVitalSigns().getSystolicBloodPressure();
         if(age < 1 && sBloodPressure >= 50 && sBloodPressure <= 70){
             return true;
@@ -141,7 +143,7 @@ public class VitalSigns {
         return false;
     }
     public boolean isNormalWeightInKilos(Patient patient){
-        int age;
+        long age;
         double weightInKg;
         age = patient.getAge();
         weightInKg = patient.getVitalSigns().getWeightInKgs();
@@ -166,7 +168,7 @@ public class VitalSigns {
         return false;
     }
     public boolean isNormalWeightInPounds(Patient patient){       
-        int age;
+        long age;
         double weightInPounds;
         age = patient.getAge();
         weightInPounds = patient.getVitalSigns().getWeightInPounds();

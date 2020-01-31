@@ -19,8 +19,9 @@ public class TestClass {
     public static void main(String[] args) {
         // TODO code application logic here
 
+   
         VitalSigns vitalSigns1 = new VitalSigns(20,130,112,1.2); // RR,HR,SBP,Wkg
-        Patient patient1 = new Patient(34,"sheldon cooper",vitalSigns1);//age,fullname,vs
+        Patient patient1 = new Patient("08-10-1993","sheldon cooper",vitalSigns1);//age,fullname,vs
         //Using hardcoded value
         if(patient1.isPatientNormal())
             System.out.println("Patient is normal");
@@ -33,18 +34,18 @@ public class TestClass {
         do{
             VitalSigns vs = new VitalSigns();
             String fullName = "";
-            int age;
             int respRate;
             int heartRate;
             int sBloodPresur;
             double weight;
+            String date;
             
             int weightFlag;
             System.out.println("Enter full name of person:");
             fullName = objIn.nextLine();
-            System.out.println("Enter age in months:");
-            age = objIn.nextInt();
             
+            System.out.println("Enter birth date in dd-mm-yyyy:");
+            date = objIn.nextLine();      
             
             System.out.println("Enter respiratory rate:");
             respRate = objIn.nextInt();
@@ -69,17 +70,18 @@ public class TestClass {
                 weight = objIn.nextDouble();
                 vs.setWeightInPounds(weight);
             }
-            Patient p = new Patient(age, fullName, vs);
+            Patient p = new Patient(date, fullName, vs);
             if(p.isPatientNormal())
                 System.out.println("Patient is normal!");
             else
                 System.out.println("Patient is abnormal!");
             System.out.println("Enter 1 to check more patients:");
             flag = objIn.nextInt();
-            
+            objIn.nextLine();
         }while(flag == 1);
 
         
+     
     }
     
 }

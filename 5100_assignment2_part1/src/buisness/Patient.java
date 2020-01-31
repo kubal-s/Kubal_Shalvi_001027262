@@ -7,25 +7,30 @@ package buisness;
 
 import buisness.VitalSigns;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 /**
  *
  * @author akhil
  */
 public class Patient {
-    private int age; 
+    private String dateOfBirth; 
     private String fullName;
     VitalSigns vitalSigns ;
+    private long ageInMonth;
 
     public Patient() {
     }
      
     
 
-    public Patient(int age, String fullName, VitalSigns vitalSigns) {
-        this.age = age;
+    public Patient(String dateOfBirth , String fullName, VitalSigns vitalSigns) {
+        this.dateOfBirth = dateOfBirth;
         this.fullName = fullName;
         this.vitalSigns = vitalSigns;
+        this.ageInMonth = this.calculateAgeInMonths(dateOfBirth);
     }
     
 
@@ -40,12 +45,12 @@ public class Patient {
  
 
     
-    public int getAge() {
-        return age;
+    public long getAge() {
+        return ageInMonth;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public void setAge(long ageInMonth) {
+        this.ageInMonth = ageInMonth;
     }
 
    
@@ -74,7 +79,22 @@ public class Patient {
     public void setFullName(String fullName) {
         this.fullName = fullName;
     }
-
+    //referenced https://javarevisited.blogspot.com/2016/10/how-to-get-number-of-months-and-years-between-two-dates-in-java.html
+    public long calculateAgeInMonths(String dateOfBirth){
+        String[] values = dateOfBirth.split("-");
+        int day = Integer.parseInt(values[0]);
+        int month = Integer.parseInt(values[1]);
+        int year = Integer.parseInt(values[2]);
+        Calendar birthDay = new GregorianCalendar(year, month - 1, day );
+        Calendar today = new GregorianCalendar(); 
+        today.setTime(new Date());
+        int yearsInBetween = today.get(Calendar.YEAR) - birthDay.get(Calendar.YEAR); 
+        int monthsDiff = today.get(Calendar.MONTH) - birthDay.get(Calendar.MONTH);
+        long ageInMonths = yearsInBetween*12 + monthsDiff; 
+        long age = yearsInBetween;
+        this.setAge(ageInMonth);
+        return ageInMonths;
+    }
  
     
     
