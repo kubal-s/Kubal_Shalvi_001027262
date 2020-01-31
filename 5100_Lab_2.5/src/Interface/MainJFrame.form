@@ -153,8 +153,12 @@
                                       <Component id="MinBpBtn" alignment="0" min="-2" pref="72" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
+                                  <Component id="abnormalBtn" min="-2" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
-                          <EmptySpace pref="36" max="32767" attributes="0"/>
+                          <EmptySpace pref="24" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -169,7 +173,9 @@
                           <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="MinBpBtn" min="-2" pref="26" max="-2" attributes="0"/>
-                          <EmptySpace pref="54" max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="abnormalBtn" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace pref="19" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -194,6 +200,14 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="70.0"/>
                   </Properties>
+                </Component>
+                <Component class="javax.swing.JButton" name="abnormalBtn">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Abnormal"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="abnormalBtnActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>

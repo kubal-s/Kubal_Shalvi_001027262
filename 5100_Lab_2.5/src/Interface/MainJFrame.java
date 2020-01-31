@@ -49,6 +49,7 @@ public class MainJFrame extends javax.swing.JFrame {
         maxBpBtn = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         MinBpBtn = new javax.swing.JTextField();
+        abnormalBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(800, 600));
@@ -97,6 +98,13 @@ public class MainJFrame extends javax.swing.JFrame {
 
         MinBpBtn.setText("70.0");
 
+        abnormalBtn.setText("Abnormal");
+        abnormalBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                abnormalBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout abnormalJPanelCtrlLayout = new javax.swing.GroupLayout(abnormalJPanelCtrl);
         abnormalJPanelCtrl.setLayout(abnormalJPanelCtrlLayout);
         abnormalJPanelCtrlLayout.setHorizontalGroup(
@@ -113,8 +121,11 @@ public class MainJFrame extends javax.swing.JFrame {
                                 .addGap(6, 6, 6)
                                 .addComponent(jLabel2))
                             .addComponent(maxBpBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(MinBpBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(36, Short.MAX_VALUE))
+                            .addComponent(MinBpBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(abnormalJPanelCtrlLayout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addComponent(abnormalBtn)))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
         abnormalJPanelCtrlLayout.setVerticalGroup(
             abnormalJPanelCtrlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -127,7 +138,9 @@ public class MainJFrame extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(MinBpBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(54, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(abnormalBtn)
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout controlJpanelLayout = new javax.swing.GroupLayout(controlJpanel);
@@ -175,6 +188,22 @@ public class MainJFrame extends javax.swing.JFrame {
         splitPanel.setRightComponent(createPanel);
     }//GEN-LAST:event_createBtnActionPerformed
 
+    private void abnormalBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abnormalBtnActionPerformed
+        // TODO add your handling code here:
+                // TODO add your handling code here:
+        double maxBP= (double)Double.parseDouble(maxBpBtn.getText());
+        double minBP = (double)Double.parseDouble(MinBpBtn.getText());
+        VitalSignHistory abnormalVSH  = new VitalSignHistory();
+        for(VitalSigns vs:vsh.getVitalSignHistory()){
+
+            if(vs.getBloodPressure()>maxBP || vs.getBloodPressure()<minBP){
+                abnormalVSH.addVital(vs);
+            }
+        }
+        ViewVitalJPanel viewPanel = new ViewVitalJPanel(abnormalVSH);
+        splitPanel.setRightComponent(viewPanel);
+    }//GEN-LAST:event_abnormalBtnActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -215,6 +244,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField MinBpBtn;
+    private javax.swing.JButton abnormalBtn;
     private javax.swing.JPanel abnormalJPanelCtrl;
     private javax.swing.JPanel controlJpanel;
     private javax.swing.JButton createBtn;
