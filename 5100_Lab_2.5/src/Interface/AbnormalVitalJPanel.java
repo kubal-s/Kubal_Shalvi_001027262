@@ -7,27 +7,28 @@ package Interface;
 
 import Business.VitalSignHistory;
 import Business.VitalSigns;
-import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author 123
+ * @author akhil
  */
-public class ViewVitalJPanel extends javax.swing.JPanel {
+public class AbnormalVitalJPanel extends javax.swing.JPanel {
 
     /**
-     * Creates new form ViewPanel
+     * Creates new form AbnormalVitalJPanel
      */
     private VitalSignHistory vsh;
-
-    public ViewVitalJPanel(VitalSignHistory vsh) {
+    private double maxBP, minBP;
+ 
+    public AbnormalVitalJPanel(VitalSignHistory vsh,double maxBP, double minBP) {
         initComponents();
         this.vsh = vsh;
-        confirmBtn.setVisible(false);
+        this.maxBP = maxBP;
+        this.minBP = minBP;
         populateTable();
-        
+        confirmBtn.setVisible(false);
         setAllEnabled(false);
     }
 
@@ -40,56 +41,23 @@ public class ViewVitalJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        vitalSignsTable = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
-        detailButton = new javax.swing.JButton();
-        deleteButton = new javax.swing.JButton();
-        jSeparator1 = new javax.swing.JSeparator();
         bloodTextField = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         dateTextField = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         tempTextField = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        vitalSignsTable = new javax.swing.JTable();
         jLabel5 = new javax.swing.JLabel();
         pulseTextField = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        detailButton = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
+        deleteButton = new javax.swing.JButton();
         updateBtn = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JSeparator();
         confirmBtn = new javax.swing.JButton();
-
-        setPreferredSize(new java.awt.Dimension(650, 800));
-
-        vitalSignsTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
-            },
-            new String [] {
-                "Date", "Blood Pressure"
-            }
-        ));
-        jScrollPane1.setViewportView(vitalSignsTable);
-
-        jLabel1.setFont(new java.awt.Font("宋体", 0, 24)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("View Vital Sign");
-
-        detailButton.setText("Details");
-        detailButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                detailButtonActionPerformed(evt);
-            }
-        });
-
-        deleteButton.setText("Delete");
-        deleteButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                deleteButtonActionPerformed(evt);
-            }
-        });
 
         bloodTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -115,6 +83,19 @@ public class ViewVitalJPanel extends javax.swing.JPanel {
             }
         });
 
+        vitalSignsTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Date", "Blood Pressure"
+            }
+        ));
+        jScrollPane1.setViewportView(vitalSignsTable);
+
         jLabel5.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         jLabel5.setText("Date: ");
 
@@ -124,8 +105,26 @@ public class ViewVitalJPanel extends javax.swing.JPanel {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("宋体", 0, 24)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Abnormal Vital Sign");
+
         jLabel2.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         jLabel2.setText("Temperature: ");
+
+        detailButton.setText("Details");
+        detailButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                detailButtonActionPerformed(evt);
+            }
+        });
+
+        deleteButton.setText("Delete");
+        deleteButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteButtonActionPerformed(evt);
+            }
+        });
 
         updateBtn.setText("Update");
         updateBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -173,7 +172,7 @@ public class ViewVitalJPanel extends javax.swing.JPanel {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(17, 17, 17)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 502, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 671, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(detailButton, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
@@ -221,23 +220,9 @@ public class ViewVitalJPanel extends javax.swing.JPanel {
                     .addComponent(jLabel5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(confirmBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(210, Short.MAX_VALUE))
+                .addContainerGap(106, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void detailButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_detailButtonActionPerformed
-        int selectedRow = vitalSignsTable.getSelectedRow();
-
-        if (selectedRow >= 0) {
-            VitalSigns vs = (VitalSigns) vitalSignsTable.getValueAt(selectedRow, 0);
-            tempTextField.setText(vs.getTemperature() + "");
-            bloodTextField.setText(vs.getBloodPressure() + "");
-            pulseTextField.setText(vs.getPulse() + "");
-            dateTextField.setText(vs.getDate());
-        } else {
-            JOptionPane.showMessageDialog(null, "Please select a row.");
-        }
-    }//GEN-LAST:event_detailButtonActionPerformed
 
     private void bloodTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bloodTextFieldActionPerformed
         // TODO add your handling code here:
@@ -254,6 +239,20 @@ public class ViewVitalJPanel extends javax.swing.JPanel {
     private void pulseTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pulseTextFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_pulseTextFieldActionPerformed
+
+    private void detailButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_detailButtonActionPerformed
+        int selectedRow = vitalSignsTable.getSelectedRow();
+
+        if (selectedRow >= 0) {
+            VitalSigns vs = (VitalSigns) vitalSignsTable.getValueAt(selectedRow, 0);
+            tempTextField.setText(vs.getTemperature() + "");
+            bloodTextField.setText(vs.getBloodPressure() + "");
+            pulseTextField.setText(vs.getPulse() + "");
+            dateTextField.setText(vs.getDate());
+        } else {
+            JOptionPane.showMessageDialog(null, "Please select a row.");
+        }
+    }//GEN-LAST:event_detailButtonActionPerformed
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
         int selectedRow = vitalSignsTable.getSelectedRow();
@@ -274,12 +273,12 @@ public class ViewVitalJPanel extends javax.swing.JPanel {
 
     private void updateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateBtnActionPerformed
         // TODO add your handling code here:
-       
+
         int selectedRow = vitalSignsTable.getSelectedRow();
         if(selectedRow >= 0){
             confirmBtn.setVisible(true);
             setAllEnabled(true);
-        
+
             VitalSigns vs = (VitalSigns) vitalSignsTable.getValueAt(selectedRow, 0);
             tempTextField.setText(vs.getTemperature() + "");
             bloodTextField.setText(vs.getBloodPressure() + "");
@@ -290,7 +289,7 @@ public class ViewVitalJPanel extends javax.swing.JPanel {
         else{
             JOptionPane.showMessageDialog(null, "Please select a row");
         }
-        
+
     }//GEN-LAST:event_updateBtnActionPerformed
 
     private void confirmBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmBtnActionPerformed
@@ -302,9 +301,9 @@ public class ViewVitalJPanel extends javax.swing.JPanel {
             vs.setDate(dateTextField.getText());
             vs.setPulse(Integer.parseInt(pulseTextField.getText()));
             vs.setBloodPressure(Double.parseDouble(bloodTextField.getText()));
-            
+
             populateTable();
-            
+
             setAllEnabled(false);
             JOptionPane.showMessageDialog(null, "Updated selected row");
             confirmBtn.setVisible(false);
@@ -312,25 +311,34 @@ public class ViewVitalJPanel extends javax.swing.JPanel {
         else{
             JOptionPane.showMessageDialog(null, "Please select a row");
         }
-        
-    }//GEN-LAST:event_confirmBtnActionPerformed
 
+    }//GEN-LAST:event_confirmBtnActionPerformed
     private void setAllEnabled(boolean b){
             tempTextField.setEnabled(b);
             bloodTextField.setEnabled(b);
             pulseTextField.setEnabled(b);
             dateTextField.setEnabled(b);
     }
-    
-    
     private void populateTable() {
+        VitalSignHistory abnormalVsh = new VitalSignHistory();
+        for(VitalSigns vs:vsh.getVitalSignHistory()){
+            if(vs.getBloodPressure()>maxBP || vs.getBloodPressure()<minBP){
+                abnormalVsh.addVital(vs);
+            }
+        }
         DefaultTableModel dtm = (DefaultTableModel) vitalSignsTable.getModel();
         dtm.setRowCount(0);
         for (VitalSigns vs : vsh.getVitalSignHistory()) {
-            Object row[] = new Object[2];
-            row[0] = vs;
-            row[1] = vs.getBloodPressure();
-            dtm.addRow(row);
+            for(VitalSigns avsh : abnormalVsh.getVitalSignHistory()){
+                if(vs.equals(avsh)){
+                    Object row[] = new Object[2];
+                    row[0] = vs;
+                    row[1] = vs.getBloodPressure();
+                    dtm.addRow(row);
+                }
+            }
+
+
         }
     }
 

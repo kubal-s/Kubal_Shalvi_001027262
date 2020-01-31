@@ -193,14 +193,7 @@ public class MainJFrame extends javax.swing.JFrame {
                 // TODO add your handling code here:
         double maxBP= (double)Double.parseDouble(maxBpBtn.getText());
         double minBP = (double)Double.parseDouble(MinBpBtn.getText());
-        VitalSignHistory abnormalVSH  = new VitalSignHistory();
-        for(VitalSigns vs:vsh.getVitalSignHistory()){
-
-            if(vs.getBloodPressure()>maxBP || vs.getBloodPressure()<minBP){
-                abnormalVSH.addVital(vs);
-            }
-        }
-        ViewVitalJPanel viewPanel = new ViewVitalJPanel(abnormalVSH);
+        AbnormalVitalJPanel viewPanel = new AbnormalVitalJPanel(vsh,maxBP,minBP);
         splitPanel.setRightComponent(viewPanel);
     }//GEN-LAST:event_abnormalBtnActionPerformed
 
