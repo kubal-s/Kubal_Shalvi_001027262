@@ -216,16 +216,16 @@ public class ViewPanel extends javax.swing.JPanel {
 
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
         // TODO add your handling code here:
-//        this.rightPanel.remove(this);
-//        CardLayout layout =(CardLayout) this.rightPanel.getLayout();
-//        Component [] comps = this.rightPanel.getComponents();
-//        for(Component comp : comps){
-//            if(comp instanceof ManageProdPanel){
-//                ManageProdPanel manageP =(ManageProdPanel) comp;
-//                manageP.populate(prodDir.getProductDirectory());
-//            }
-//        }
-//        layout.previous(rightPanel);
+        this.rightPanel.remove(this);
+        CardLayout layout =(CardLayout) this.rightPanel.getLayout();
+        Component [] comps = this.rightPanel.getComponents();
+        for(Component comp : comps){
+            if(comp instanceof ManageProdPanel){
+                ManageProdPanel manageP =(ManageProdPanel) comp;
+                manageP.populate(prodDir.getProductDirectory());
+            }
+        }
+        layout.previous(rightPanel);
     }//GEN-LAST:event_backActionPerformed
 
 

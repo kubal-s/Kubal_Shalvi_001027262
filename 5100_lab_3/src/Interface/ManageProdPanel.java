@@ -63,7 +63,6 @@ public class ManageProdPanel extends javax.swing.JPanel {
         txtsearch = new javax.swing.JTextField();
         btnDelete = new javax.swing.JButton();
         back = new javax.swing.JButton();
-        searchBtn = new javax.swing.JButton();
         ViewBtn = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(153, 153, 255));
@@ -111,13 +110,6 @@ public class ManageProdPanel extends javax.swing.JPanel {
             }
         });
 
-        searchBtn.setText("Search");
-        searchBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchBtnActionPerformed(evt);
-            }
-        });
-
         ViewBtn.setText("View Product");
         ViewBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -146,9 +138,7 @@ public class ManageProdPanel extends javax.swing.JPanel {
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                             .addComponent(lblSearchAccNo)
                             .addGap(18, 18, 18)
-                            .addComponent(txtsearch, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(searchBtn))
+                            .addComponent(txtsearch, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(76, 76, 76))
         );
@@ -167,13 +157,12 @@ public class ManageProdPanel extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblSearchAccNo)
-                    .addComponent(txtsearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(searchBtn))
+                    .addComponent(txtsearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnDelete)
                     .addComponent(ViewBtn))
-                .addContainerGap(124, Short.MAX_VALUE))
+                .addContainerGap(127, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -207,35 +196,6 @@ public class ManageProdPanel extends javax.swing.JPanel {
         layout.previous(rightPanel);
     }//GEN-LAST:event_backActionPerformed
 
-    private void searchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBtnActionPerformed
-        // TODO add your handling code here:
-        String prodName = txtsearch.getText();
-        Product product = null;
-        for(Product p: prodDir.getProductDirectory()){
-            if(p.getName().equals(prodName)){
-                product  = new Product();
-                product = p;
-                txtsearch.setText("");
-                break;
-            }  
-        }
-        if(product == null){
-            JOptionPane.showMessageDialog(null, "No such product found! Please enter a valid name.");
-        
-        }else{
-            
-//            ViewPanel viewPanel = new ViewPanel(this.rightPanel,product,prodDir);
-//            this.rightPanel.add("ViewPanel", viewPanel);
-//            CardLayout layout =(CardLayout) this.rightPanel.getLayout();
-//            layout.next(this.rightPanel);
-        }
-            
-//        ViewPanel viewPanel = new ManageProdPanel(this.panel,prodDir);
-//        this.rightPanel.add("ViewPanel", viewPanel);
-//        CardLayout layout =(CardLayout) this.rightPanel.getLayout();
-//        layout.next(this.rightPanel);
-    }//GEN-LAST:event_searchBtnActionPerformed
-
     private void txtsearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtsearchActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtsearchActionPerformed
@@ -262,12 +222,21 @@ public class ManageProdPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblManage;
     private javax.swing.JLabel lblSearchAccNo;
-    private javax.swing.JButton searchBtn;
     private javax.swing.JTable tblDirectory;
     private javax.swing.JTextField txtsearch;
     // End of variables declaration//GEN-END:variables
 
     void populate(ArrayList<Product> productDirectory) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        DefaultTableModel dtm = (DefaultTableModel)tblDirectory.getModel();
+        dtm.setRowCount(0);
+        
+        for(Product a : productDirectory){
+            Object[] row = new Object[dtm.getColumnCount()];
+            row[0]=a;
+            row[1]=a.getAvailNum();
+            row[2]=a.getPrice();
+            dtm.addRow(row);
+        }
     }
 }
