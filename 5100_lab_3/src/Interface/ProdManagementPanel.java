@@ -87,7 +87,7 @@ public class ProdManagementPanel extends javax.swing.JPanel {
     private void btnManageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageActionPerformed
         // TODO add your handling code here:
         ManageProdPanel managePanel = new ManageProdPanel(this.panel,accDir);
-        this.panel.add("CreateProductJPanel", managePanel);
+        this.panel.add("ManageProdPanel", managePanel);
         CardLayout layout =(CardLayout) this.panel.getLayout();
         layout.next(panel);
     }//GEN-LAST:event_btnManageActionPerformed
