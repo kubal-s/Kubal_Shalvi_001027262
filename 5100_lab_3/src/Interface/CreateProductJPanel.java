@@ -140,6 +140,16 @@ public class CreateProductJPanel extends javax.swing.JPanel {
 
     private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
         // TODO add your handling code here:
+        if (txtProdName.getText().trim().isEmpty()){
+            JOptionPane.showMessageDialog(null,"Please enter product name!");
+            return;
+        }
+        for(Product p : prodDir.getProductDirectory()){
+            if(p.getName().trim().toLowerCase().equals(txtProdName.getText().trim().toLowerCase())){
+                JOptionPane.showMessageDialog(null,"This product name exists enter a different one!");
+                return;
+            }
+        }
         String availibilityText = txtAvailablity.getText();
         int availibilty = 0;
         try{

@@ -172,13 +172,18 @@ public class ViewPanel extends javax.swing.JPanel {
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
         
-            txtAvailablity.setEditable(false);
-            txtPrice.setEditable(false);
-            txtProdName.setEditable(false);
-            txtDesc.setEnabled(false);
-            btnSave.setEnabled(false);
-            btnUpdate.setEnabled(true);
-            
+
+            if (txtProdName.getText().trim().isEmpty()){
+                JOptionPane.showMessageDialog(null,"Please enter product name!");
+                return;
+            }
+            for(Product p : prodDir.getProductDirectory()){
+                if(p.getName().trim().toLowerCase().equals(txtProdName.getText().trim().toLowerCase()) 
+                        && !product.getName().trim().toLowerCase().equals(txtProdName.getText().trim().toLowerCase())){
+                    JOptionPane.showMessageDialog(null,"This product name exists enter a different one!");
+                    return;
+                }
+            }
             String availibilityText = txtAvailablity.getText();
             int availibilty = 0;
             try{
@@ -210,7 +215,12 @@ public class ViewPanel extends javax.swing.JPanel {
             product.setDescription(txtDesc.getText());
         
             JOptionPane.showMessageDialog(null, "Account updated successfully");  
-
+            txtAvailablity.setEditable(false);
+            txtPrice.setEditable(false);
+            txtProdName.setEditable(false);
+            txtDesc.setEnabled(false);
+            btnSave.setEnabled(false);
+            btnUpdate.setEnabled(true);
         
     }//GEN-LAST:event_btnSaveActionPerformed
 
