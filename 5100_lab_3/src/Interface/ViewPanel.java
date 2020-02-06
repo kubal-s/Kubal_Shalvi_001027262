@@ -172,7 +172,6 @@ public class ViewPanel extends javax.swing.JPanel {
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
         
-
             if (txtProdName.getText().trim().isEmpty()){
                 JOptionPane.showMessageDialog(null,"Please enter product name!");
                 return;
