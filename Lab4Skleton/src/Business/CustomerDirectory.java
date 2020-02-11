@@ -29,5 +29,8 @@ public class CustomerDirectory {
     public void setCustomerList(List<User> supplierList) {
         this.customerList = supplierList;
     }
+    public void addToCustomerList(Customer customer){
+        customerList.add(customer);
+    }
     
 }

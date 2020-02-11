@@ -29,6 +29,8 @@ public class SupplierDirectory {
     public void setSupplierList(List<User> supplierList) {
         this.supplierList = supplierList;
     }
-    
+    public void addToSupplierList(Supplier supplier){
+        supplierList.add(supplier);
+    }
     
 }

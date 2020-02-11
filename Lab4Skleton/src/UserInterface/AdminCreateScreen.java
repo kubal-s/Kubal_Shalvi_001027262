@@ -5,11 +5,13 @@
  */
 package UserInterface;
 
+import Business.Abstract.User;
 import Business.Users.Admin;
 import Business.Users.Customer;
 import Business.Users.Supplier;
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
@@ -142,7 +144,46 @@ public class AdminCreateScreen extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here:       
+        if (txtUser.getText().trim().isEmpty()){
+            JOptionPane.showMessageDialog(null,"Please enter name!");
+            return;
+        }
+        if (txtPword.getText().trim().isEmpty()){
+            JOptionPane.showMessageDialog(null,"Please enter password!");
+            return;
+        }
+        if (txtRePword.getText().trim().isEmpty()){
+            JOptionPane.showMessageDialog(null,"Please re-enter password!");
+            return;
+        }
+        if(!radioCustomer.isSelected()&&!radioSupplier.isSelected()){
+            JOptionPane.showMessageDialog(null,"Please select role!");
+            return;
+        }
+        String role = radioCustomer.isSelected()?radioCustomer.getText():radioSupplier.getText();    
+        String name = txtUser.getText();
+        String password = txtPword.getText();
+        String rePassword = txtRePword.getText();
+        Date date = new Date();
+                switch (role.toUpperCase()) {
+            case "SUPPLIER":
+                {
+                    User user =new Supplier(password, name);
+                    user.setDate(date);
+                    admin.getSuppDir().addToSupplierList((Supplier)user);
+                    JOptionPane.showMessageDialog(null,"Supplier user created successfully!");
+                    break;
+                }
+            case "CUSTOMER":
+                {
+                    User user =new Customer(password, name);
+                    user.setDate(date);
+                    admin.getCustDir().addToCustomerList((Customer)user);
+                    JOptionPane.showMessageDialog(null,"Customer user created successfully!");
+                    break;
+                }
+        }
         
     }//GEN-LAST:event_btnCreateActionPerformed
 
@@ -154,6 +195,13 @@ public class AdminCreateScreen extends javax.swing.JPanel {
 
         CardLayout layout = (CardLayout)panelRight.getLayout();
         panelRight.remove(this);
+        Component [] comps = this.panelRight.getComponents();
+        for(Component comp : comps){
+            if(comp instanceof AdminMainScreen){
+                AdminMainScreen ams = (AdminMainScreen)comp;
+                ams.populate();
+            }
+        }
         layout.previous(panelRight);
     }//GEN-LAST:event_btnBackActionPerformed
 
