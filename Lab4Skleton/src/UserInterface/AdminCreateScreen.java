@@ -80,6 +80,11 @@ public class AdminCreateScreen extends javax.swing.JPanel {
         });
 
         radioSupplier.setText("Supplier");
+        radioSupplier.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radioSupplierActionPerformed(evt);
+            }
+        });
 
         btnBack.setText("< BACK");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
@@ -189,6 +194,9 @@ public class AdminCreateScreen extends javax.swing.JPanel {
 
     private void radioCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioCustomerActionPerformed
         // TODO add your handling code here:
+        if(radioCustomer.isSelected()){
+            radioSupplier.setSelected(false);
+        }
     }//GEN-LAST:event_radioCustomerActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
@@ -204,6 +212,13 @@ public class AdminCreateScreen extends javax.swing.JPanel {
         }
         layout.previous(panelRight);
     }//GEN-LAST:event_btnBackActionPerformed
+
+    private void radioSupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioSupplierActionPerformed
+        // TODO add your handling code here:        
+        if(radioSupplier.isSelected()){
+            radioCustomer.setSelected(false);
+        }
+    }//GEN-LAST:event_radioSupplierActionPerformed
 
     
     
