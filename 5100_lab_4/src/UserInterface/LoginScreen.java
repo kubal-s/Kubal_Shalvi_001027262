@@ -104,6 +104,7 @@ public class LoginScreen extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null,"Please enter password!");
             return;
         }
+        
         for(User u : list){
             System.out.println(u.getPassword());
             System.out.println(u.getUserName());
