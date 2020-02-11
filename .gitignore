@@ -1,9 +1,11 @@
+5100_lab_4/build/*
 5100_Lab_2.5/build/*
 5100_lab_1/build/*
 5100_lab_3/build/*
 5100_assignment_1/build/*
 5100_assignment2_part1/build/*
 5100_assignment2_part2/build/*
+5100_lab_4/!build/build.xml
 5100_Lab_2.5/!build/build.xml
 5100_lab_1/!build/build.xml
 5100_lab_3/!build/build.xml
