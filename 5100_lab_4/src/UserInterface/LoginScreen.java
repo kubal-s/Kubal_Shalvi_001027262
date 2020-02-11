@@ -6,9 +6,11 @@
 package UserInterface;
 
 import Business.Abstract.User;
+import Business.SupplierDirectory;
 import Business.Users.Customer;
 import Business.Users.Supplier;
 import java.awt.CardLayout;
+import java.awt.Component;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -24,10 +26,12 @@ public class LoginScreen extends javax.swing.JPanel {
      */
     List<User> list;
     JPanel panelRight;
-    public LoginScreen(JPanel panelRight, List<User> list) {
+    String role;
+    public LoginScreen(JPanel panelRight, List<User> list,String role) {
         initComponents();
         this.list = list;
         this.panelRight = panelRight;
+        this.role = role;
         initialize();
     }
 
@@ -92,15 +96,31 @@ public class LoginScreen extends javax.swing.JPanel {
 
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
         // TODO add your handling code here:
+        User user = (User) comboUser.getSelectedItem();
+        String password = txtPword.getText();
+        for(User u : list){
+            System.out.println(u.getPassword());
+            System.out.println(u.getUserName());
+            System.out.println(user.getUserName());
+            System.out.println(password);
+            if(u.getUserName().equals(user.getUserName())&&u.getPassword().equals(password)){
+                CardLayout layout = (CardLayout)panelRight.getLayout();
+                panelRight.add(new SuccessScreen(user));
+                layout.next(panelRight);
+            }
+        }
         
     }//GEN-LAST:event_btnSubmitActionPerformed
 
     
     private void initialize(){
-        //text should either be "Supplier Login Screen" OR "Customer Login Screen"
-        //Based on the selection
-        txtTitle.setText("****** Login Screen");
+        String roleText;
+        roleText = (role).substring(0, 1) + (role).substring(1).toLowerCase();
+        txtTitle.setText(roleText+" Login Screen");
         comboUser.removeAllItems();
+        for(User u : list){
+            comboUser.addItem(u);
+        }
         //only customer or suppliers should be listed based on the selection
     }
     
