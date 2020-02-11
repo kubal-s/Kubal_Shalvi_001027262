@@ -68,7 +68,7 @@ public class AdminMainScreen extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Supplier Name", "Number of Products"
+                "Supplier Name", "Date Created"
             }
         ));
         jScrollPane2.setViewportView(tableSup);
@@ -118,8 +118,17 @@ public class AdminMainScreen extends javax.swing.JPanel {
             Supplier s = (Supplier)u;
             Object[] row = new Object[dtm.getColumnCount()];
             row[0]=s;
-            row[1]=s.getDirectory().getProductList().size();
+            row[1]=s.getDate();
             dtm.addRow(row);
+        }
+        DefaultTableModel dtmc = (DefaultTableModel)tableCust.getModel();
+        dtmc.setRowCount(0);
+        for(User u : admin.getCustDir().getCustomerList()){
+            Customer s = (Customer)u;
+            Object[] row = new Object[dtmc.getColumnCount()];
+            row[0]=s;
+            row[1]=s.getDate();
+            dtmc.addRow(row);
         }
 
     }
