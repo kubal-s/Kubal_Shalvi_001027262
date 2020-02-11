@@ -203,7 +203,7 @@ public class AdminCreateScreen extends javax.swing.JPanel {
             return;
         }
         else{
-            txtRePword.setBorder(new LineBorder(Color.RED));
+            txtRePword.setBorder(new LineBorder(Color.LIGHT_GRAY));
             LblRePass.setForeground(Color.BLACK);
         }
         if(!radioCustomer.isSelected()&&!radioSupplier.isSelected()){

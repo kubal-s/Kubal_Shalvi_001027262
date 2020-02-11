@@ -10,10 +10,12 @@ import Business.SupplierDirectory;
 import Business.Users.Customer;
 import Business.Users.Supplier;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.border.LineBorder;
 
 /**
  *
@@ -96,16 +98,29 @@ public class LoginScreen extends javax.swing.JPanel {
         // TODO add your handling code here:
         User user = (User) comboUser.getSelectedItem();
         String password = txtPword.getText();
+        boolean isWrongPwd = true;
+        if (txtPword.getText().trim().isEmpty()){
+            txtPword.setBorder(new LineBorder(Color.red));
+            JOptionPane.showMessageDialog(null,"Please enter password!");
+            return;
+        }
         for(User u : list){
             System.out.println(u.getPassword());
             System.out.println(u.getUserName());
             System.out.println(user.getUserName());
             System.out.println(password);
             if(u.getUserName().equals(user.getUserName())&&u.verify(password)){
+                isWrongPwd = false;
+                txtPword.setBorder(new LineBorder(Color.LIGHT_GRAY));
                 CardLayout layout = (CardLayout)panelRight.getLayout();
                 panelRight.add(new SuccessScreen(user));
                 layout.next(panelRight);
             }
+        }
+        if(isWrongPwd){
+            txtPword.setBorder(new LineBorder(Color.red));
+            JOptionPane.showMessageDialog(null,"Wrong password entered!");
+            return;
         }
         
     }//GEN-LAST:event_btnSubmitActionPerformed
