@@ -149,19 +149,32 @@ public class AdminCreateScreen extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
-        // TODO add your handling code here:       
+        // TODO add your handling code here:    
         if (txtUser.getText().trim().isEmpty()){
             JOptionPane.showMessageDialog(null,"Please enter name!");
             return;
         }
+        if(!usernamePatternCorrect()){
+            JOptionPane.showMessageDialog(null,"Enter username of the form xx_xx@xx.xx!");
+            return; 
+        }
         if (txtPword.getText().trim().isEmpty()){
             JOptionPane.showMessageDialog(null,"Please enter password!");
+            return;
+        }
+        if(!passwordPatternCorrect()){
+            JOptionPane.showMessageDialog(null,"Password should be atleast 6 characters\n1 lowercase\n1 uppercase \n1 digit \n1 character from ($*#&) !");
             return;
         }
         if (txtRePword.getText().trim().isEmpty()){
             JOptionPane.showMessageDialog(null,"Please re-enter password!");
             return;
         }
+        if(!txtRePword.getText().equals(txtPword.getText())){
+            JOptionPane.showMessageDialog(null,"Password no not match!");
+            return;
+        }
+        
         if(!radioCustomer.isSelected()&&!radioSupplier.isSelected()){
             JOptionPane.showMessageDialog(null,"Please select role!");
             return;
@@ -192,6 +205,18 @@ public class AdminCreateScreen extends javax.swing.JPanel {
         
     }//GEN-LAST:event_btnCreateActionPerformed
 
+    private boolean usernamePatternCorrect(){
+        Pattern p = Pattern.compile("^[a-zA-Z0-9]+_[a-zA-Z0-9]+@[a-zA-Z0-9]+.[a-zA-Z0-9]+$");    
+        Matcher m = p.matcher(txtUser.getText());
+        boolean b = m.matches();
+        return b;
+    }
+    private boolean passwordPatternCorrect(){
+        Pattern p = Pattern.compile("((?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[$*#&]).{6,})");    
+        Matcher m = p.matcher(txtPword.getText());
+        boolean b = m.matches();
+        return b;
+    }
     private void radioCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioCustomerActionPerformed
         // TODO add your handling code here:
         if(radioCustomer.isSelected()){

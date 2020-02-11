@@ -7,7 +7,6 @@ package Business.Users;
 
 import Business.Abstract.User;
 import java.util.Date;
-
 /**
  *
  * @author AEDSpring2019
@@ -20,10 +19,13 @@ public class Customer extends User{
 
     @Override
     public boolean verify(String password) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(password.equals(getPassword()))
+            return true;
+        return false;
     }
     @Override
     public String toString() {
         return getUserName(); //To change body of generated methods, choose Tools | Templates.
     }
+
 }

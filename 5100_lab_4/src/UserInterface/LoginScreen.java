@@ -44,10 +44,10 @@ public class LoginScreen extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        txtPword = new javax.swing.JTextField();
         btnSubmit = new javax.swing.JButton();
-        comboUser = new javax.swing.JComboBox<>();
+        comboUser = new javax.swing.JComboBox<Object>();
         txtTitle = new javax.swing.JLabel();
+        txtPword = new javax.swing.JPasswordField();
 
         btnSubmit.setText("Login");
         btnSubmit.addActionListener(new java.awt.event.ActionListener() {
@@ -56,7 +56,7 @@ public class LoginScreen extends javax.swing.JPanel {
             }
         });
 
-        comboUser.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboUser.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         txtTitle.setText("Supplier Login Screen");
 
@@ -65,18 +65,16 @@ public class LoginScreen extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtPword)
-                    .addComponent(comboUser, 0, 166, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(150, 150, 150)
-                .addComponent(btnSubmit)
-                .addContainerGap(171, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(txtTitle)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(150, 150, 150)
+                        .addComponent(btnSubmit))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(comboUser, 0, 166, Short.MAX_VALUE)
+                            .addComponent(txtTitle)
+                            .addComponent(txtPword))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -86,11 +84,11 @@ public class LoginScreen extends javax.swing.JPanel {
                 .addComponent(txtTitle)
                 .addGap(18, 18, 18)
                 .addComponent(comboUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtPword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
+                .addComponent(txtPword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32)
                 .addComponent(btnSubmit)
-                .addContainerGap(131, Short.MAX_VALUE))
+                .addContainerGap(111, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -103,7 +101,7 @@ public class LoginScreen extends javax.swing.JPanel {
             System.out.println(u.getUserName());
             System.out.println(user.getUserName());
             System.out.println(password);
-            if(u.getUserName().equals(user.getUserName())&&u.getPassword().equals(password)){
+            if(u.getUserName().equals(user.getUserName())&&u.verify(password)){
                 CardLayout layout = (CardLayout)panelRight.getLayout();
                 panelRight.add(new SuccessScreen(user));
                 layout.next(panelRight);
@@ -128,7 +126,7 @@ public class LoginScreen extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSubmit;
     private javax.swing.JComboBox<Object> comboUser;
-    private javax.swing.JTextField txtPword;
+    private javax.swing.JPasswordField txtPword;
     private javax.swing.JLabel txtTitle;
     // End of variables declaration//GEN-END:variables
 }
