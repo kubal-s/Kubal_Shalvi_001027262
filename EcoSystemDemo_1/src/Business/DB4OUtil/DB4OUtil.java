@@ -56,7 +56,7 @@ public class DB4OUtil {
 
     public synchronized void storeSystem(EcoSystem system) {
         ObjectContainer conn = createConnection();
-        System.out.println("store:"+system.getUserAccountDirectory().getUserAccountList().size());
+        //System.out.println("store:"+system.getUserAccountDirectory().getUserAccountList().size());
         conn.store(system);
         conn.commit();
         conn.close();
@@ -67,13 +67,13 @@ public class DB4OUtil {
         ObjectSet<EcoSystem> systems = conn.query(EcoSystem.class); // Change to the object you want to save
         EcoSystem system;
         if (systems.size() == 0){
-            System.out.println("1:"+s );
+            //System.out.println("1:"+s );
             system = ConfigureASystem.configure();  // If there's no System in the record, create a new one
             
         }
         else{
-            System.out.println("2:"+s);
-            System.out.println("size: "+systems.size());
+//            System.out.println("2:"+s);
+//            System.out.println("size: "+systems.size());
             system = systems.get(systems.size() - 1);
         }
         conn.close();

@@ -162,8 +162,8 @@ public class ManageDeliveryManJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         int selectedRow = tblDirectory.getSelectedRow();
         if(selectedRow>=0){
-            String userName = (String)tblDirectory.getValueAt(selectedRow, 1);
-            JPanel updateDeliveryManJPanel = new UpdateDeliveryManJPanel(userProcessContainer,dB4OUtil,userName);
+            UserAccount userAccount = (UserAccount)tblDirectory.getValueAt(selectedRow, 1);
+            JPanel updateDeliveryManJPanel = new UpdateDeliveryManJPanel(userProcessContainer,dB4OUtil,userAccount);
             userProcessContainer.add("updateDeliveryMan",updateDeliveryManJPanel);
             CardLayout cardLayout = (CardLayout)userProcessContainer.getLayout();
             cardLayout.next(this.userProcessContainer);
@@ -179,17 +179,18 @@ public class ManageDeliveryManJPanel extends javax.swing.JPanel {
             int selectionButton = JOptionPane.YES_NO_OPTION;
             int selectionResult = JOptionPane.showConfirmDialog(null, "Are you sure to delete??","Warning",selectionButton);
             if(selectionResult == JOptionPane.YES_OPTION){
-                String userName = (String)tblDirectory.getValueAt(selectedRow, 1);
-                System.out.println(userName);
+                UserAccount selectedUserAccount = (UserAccount)tblDirectory.getValueAt(selectedRow, 1);
+                //System.out.println(userName);
                 //
-//            for(UserAccount userAccount:this.ecoSystem.getUserAccountDirectory().getUserAccountList()){
-//                if(userAccount.getUsername().equals(userName)){
-//                    System.out.println("in delte delivery man");
-//                    this.ecoSystem.getUserAccountDirectory().getUserAccountList().remove(userAccount);
-//                    break;
-//                }
-//            }
-//                populate();
+            for(UserAccount userAccount:this.ecoSystem.getUserAccountDirectory().getUserAccountList()){
+                if(userAccount.getUsername().equals(selectedUserAccount.getUsername())){
+                   // System.out.println("in delte delivery man");
+                    this.ecoSystem.getUserAccountDirectory().getUserAccountList().remove(userAccount);
+                    break;
+                }
+            }
+            dB4OUtil.storeSystem(ecoSystem);
+                populate();
 //            }
             }
         }else{

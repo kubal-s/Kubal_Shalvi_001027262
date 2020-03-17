@@ -26,15 +26,15 @@ public class UpdateDeliveryManJPanel extends javax.swing.JPanel {
     private JPanel userProcessContainer;
     private EcoSystem ecoSystem;
     private DB4OUtil  dB4OUtil;
-    private String userName;
-    public UpdateDeliveryManJPanel(JPanel userProcessContainer,DB4OUtil dB4OUtil,String userName) {
+    private UserAccount currentUserAccount;
+    public UpdateDeliveryManJPanel(JPanel userProcessContainer,DB4OUtil dB4OUtil,UserAccount currentUserAccount) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
         this.dB4OUtil = dB4OUtil;
         this.ecoSystem = dB4OUtil.retrieveSystem("update delivery man");
-        this.userName = userName;
+        this.currentUserAccount = currentUserAccount;
         for(UserAccount userAccount:this.ecoSystem.getUserAccountDirectory().getUserAccountList()){
-            if(userAccount.getUsername().equals(userName)){
+            if(userAccount.getUsername().equals(currentUserAccount.getUsername())){
                 txtName.setText(userAccount.getUser().getName());
                 txtPassword.setText(userAccount.getPassword());
                 txtUsername.setText(userAccount.getUsername());
@@ -131,7 +131,7 @@ public class UpdateDeliveryManJPanel extends javax.swing.JPanel {
                     .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addGap(17, 17, 17)
@@ -190,7 +190,7 @@ public class UpdateDeliveryManJPanel extends javax.swing.JPanel {
             return;
         }
         for(UserAccount userAccount:this.ecoSystem.getUserAccountDirectory().getUserAccountList()){
-            if(userAccount.getUsername().equals(userName)){
+            if(currentUserAccount.getUsername().equals(userAccount.getUsername())){
                 userAccount.getUser().setName(txtName.getText());
                 userAccount.setUsername(txtUsername.getText());
                 userAccount.setPassword(txtPassword.getText());
@@ -198,7 +198,7 @@ public class UpdateDeliveryManJPanel extends javax.swing.JPanel {
             }
         }
         dB4OUtil.storeSystem(ecoSystem);
-        JOptionPane.showMessageDialog(null,"updated delivery person "+ userName +" successfully!");
+        JOptionPane.showMessageDialog(null,"updated delivery person successfully!");
         return;
     }//GEN-LAST:event_btnUpdateMenuItemActionPerformed
 
