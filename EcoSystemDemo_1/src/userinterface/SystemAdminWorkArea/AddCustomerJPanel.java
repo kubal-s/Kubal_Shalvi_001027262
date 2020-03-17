@@ -7,7 +7,7 @@ package userinterface.SystemAdminWorkArea;
 
 import Business.DB4OUtil.DB4OUtil;
 import Business.EcoSystem;
-import Business.Role.DeliverManRole;
+import Business.Role.CustomerRole;
 import Business.User.User;
 import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
@@ -19,19 +19,19 @@ import javax.swing.JPanel;
  *
  * @author akhil
  */
-public class AddDeliveryManJPanel extends javax.swing.JPanel {
+public class AddCustomerJPanel extends javax.swing.JPanel {
 
     /**
-     * Creates new form AddDeliveryManJPanel
-     */
+     * Creates new form addCustomerJPanel
+     */   
     private JPanel userProcessContainer;
     private EcoSystem ecosystem;
     private DB4OUtil dB4OUtil;
-    public AddDeliveryManJPanel(JPanel userProcessContainer,DB4OUtil dB4OUtil) {
+    public AddCustomerJPanel(JPanel userProcessContainer,DB4OUtil dB4OUtil) {
         initComponents();
         this.userProcessContainer=userProcessContainer;
         this.dB4OUtil = dB4OUtil;
-        this.ecosystem =  dB4OUtil.retrieveSystem("adddeliveryman");
+        this.ecosystem= dB4OUtil.retrieveSystem("add customer panel");
     }
 
     /**
@@ -43,21 +43,14 @@ public class AddDeliveryManJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnAddMenuItem = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         txtFullName = new javax.swing.JTextField();
-        txtPassword = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
         txtUserName = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-
-        btnAddMenuItem.setText("Create");
-        btnAddMenuItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddMenuItemActionPerformed(evt);
-            }
-        });
+        txtPassword = new javax.swing.JTextField();
+        btnAddMenuItem = new javax.swing.JButton();
 
         btnBack.setText("Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
@@ -71,6 +64,13 @@ public class AddDeliveryManJPanel extends javax.swing.JPanel {
         jLabel2.setText("Username");
 
         jLabel3.setText("Password");
+
+        btnAddMenuItem.setText("Create");
+        btnAddMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddMenuItemActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -121,6 +121,20 @@ public class AddDeliveryManJPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        // TODO add your handling code here:
+        this.userProcessContainer.remove(this);
+        CardLayout layout =(CardLayout) this.userProcessContainer.getLayout();
+        Component [] comps = this.userProcessContainer.getComponents();
+        for(Component comp : comps){
+            if(comp instanceof ManageCustomerJPanel){
+                ManageCustomerJPanel mcjp =(ManageCustomerJPanel) comp;
+                mcjp.populate();
+            }
+        }
+        layout.previous(userProcessContainer);
+    }//GEN-LAST:event_btnBackActionPerformed
+
     private void btnAddMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddMenuItemActionPerformed
         // TODO add your handling code here:
         if(txtFullName.getText().isEmpty()){
@@ -141,34 +155,19 @@ public class AddDeliveryManJPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null,"Please enter password!");
             return;
         }
-        
+
         User user = ecosystem.getUserDirectory().createUser(txtFullName.getText()); //employee name
-        
-        UserAccount userAccount = ecosystem.getUserAccountDirectory().createUserAccount(txtUserName.getText(),txtPassword.getText() , user, new DeliverManRole());
-        
-        
+
+        UserAccount userAccount = ecosystem.getUserAccountDirectory().createUserAccount(txtUserName.getText(),txtPassword.getText() , user, new CustomerRole());
+
         System.out.println(ecosystem.getUserAccountDirectory().getUserAccountList());
         dB4OUtil.storeSystem(ecosystem);
-        
-        JOptionPane.showMessageDialog(null, "Delivery man created successfully!");
+
+        JOptionPane.showMessageDialog(null, "Customer man created successfully!");
         txtFullName.setText("");
         txtPassword.setText("");
         txtUserName.setText("");
     }//GEN-LAST:event_btnAddMenuItemActionPerformed
-
-    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-        // TODO add your handling code here:
-        this.userProcessContainer.remove(this);
-        CardLayout layout =(CardLayout) this.userProcessContainer.getLayout();
-        Component [] comps = this.userProcessContainer.getComponents();
-        for(Component comp : comps){
-            if(comp instanceof ManageDeliveryManJPanel){
-                ManageDeliveryManJPanel mdm =(ManageDeliveryManJPanel) comp;
-                mdm.populate();
-            }
-        }
-        layout.previous(userProcessContainer);
-    }//GEN-LAST:event_btnBackActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

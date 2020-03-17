@@ -10,10 +10,8 @@ import Business.EcoSystem;
 import Business.Role.Role;
 import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
-import java.awt.Component;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
@@ -22,22 +20,20 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author akhil
  */
-public class ManageDeliveryManJPanel extends javax.swing.JPanel {
+public class ManageCustomerJPanel extends javax.swing.JPanel {
 
     /**
-     * Creates new form ManageDeliveryManJPanel
-     */
+     * Creates new form ManageCustomerJPanel
+     */    
     private JPanel userProcessContainer;
     private EcoSystem ecoSystem;
-    private List<UserAccount> deliveryMans;
     private DB4OUtil dB4OUtil;
-    
-    public ManageDeliveryManJPanel(JPanel userProcessContainer,DB4OUtil dB4OUtil) {
+    private List<UserAccount> Customers;
+    public ManageCustomerJPanel(JPanel userProcessContainer,DB4OUtil dB4OUtil) {
         initComponents();
         this.userProcessContainer=userProcessContainer;
         this.dB4OUtil = dB4OUtil;
-        this.ecoSystem = dB4OUtil.retrieveSystem("managedeliveryman");
-        //this.deliveryMans = fetchDeliveryMans();
+        this.ecoSystem= dB4OUtil.retrieveSystem("manage customer panel");
         populate();
     }
 
@@ -50,12 +46,19 @@ public class ManageDeliveryManJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btnBack = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblDirectory = new javax.swing.JTable();
-        btnBack = new javax.swing.JButton();
-        btnAddDeliveryMan = new javax.swing.JButton();
+        btnAddCustomer = new javax.swing.JButton();
         btnUpdate = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
+
+        btnBack.setText("Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
 
         tblDirectory.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -78,17 +81,10 @@ public class ManageDeliveryManJPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tblDirectory);
 
-        btnBack.setText("Back");
-        btnBack.addActionListener(new java.awt.event.ActionListener() {
+        btnAddCustomer.setText("Add");
+        btnAddCustomer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBackActionPerformed(evt);
-            }
-        });
-
-        btnAddDeliveryMan.setText("Add");
-        btnAddDeliveryMan.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddDeliveryManActionPerformed(evt);
+                btnAddCustomerActionPerformed(evt);
             }
         });
 
@@ -118,7 +114,7 @@ public class ManageDeliveryManJPanel extends javax.swing.JPanel {
                 .addContainerGap(16, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnAddDeliveryMan)
+                .addComponent(btnAddCustomer)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
@@ -134,7 +130,7 @@ public class ManageDeliveryManJPanel extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnAddDeliveryMan)
+                .addComponent(btnAddCustomer)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnUpdate)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -150,21 +146,21 @@ public class ManageDeliveryManJPanel extends javax.swing.JPanel {
         layout.previous(userProcessContainer);
     }//GEN-LAST:event_btnBackActionPerformed
 
-    private void btnAddDeliveryManActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddDeliveryManActionPerformed
+    private void btnAddCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddCustomerActionPerformed
         // TODO add your handling code here:
-        JPanel addDeliveryManJPanel = new AddDeliveryManJPanel(userProcessContainer,dB4OUtil);
-        userProcessContainer.add("addDeliveryManJPanel",addDeliveryManJPanel);
+        JPanel addCustomerJPanel = new AddCustomerJPanel(userProcessContainer,dB4OUtil);
+        userProcessContainer.add("addCustomer",addCustomerJPanel);
         CardLayout cardLayout = (CardLayout)userProcessContainer.getLayout();
         cardLayout.next(this.userProcessContainer);
-    }//GEN-LAST:event_btnAddDeliveryManActionPerformed
+    }//GEN-LAST:event_btnAddCustomerActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
         int selectedRow = tblDirectory.getSelectedRow();
         if(selectedRow>=0){
             UserAccount userAccount = (UserAccount)tblDirectory.getValueAt(selectedRow, 1);
-            JPanel updateDeliveryManJPanel = new UpdateDeliveryManJPanel(userProcessContainer,dB4OUtil,userAccount);
-            userProcessContainer.add("updateDeliveryMan",updateDeliveryManJPanel);
+            JPanel updateCustomerJPanel = new UpdateCustomerJPanel(userProcessContainer,dB4OUtil,userAccount);
+            userProcessContainer.add("updateCustomer",updateCustomerJPanel);
             CardLayout cardLayout = (CardLayout)userProcessContainer.getLayout();
             cardLayout.next(this.userProcessContainer);
         }else{
@@ -180,54 +176,44 @@ public class ManageDeliveryManJPanel extends javax.swing.JPanel {
             int selectionResult = JOptionPane.showConfirmDialog(null, "Are you sure to delete??","Warning",selectionButton);
             if(selectionResult == JOptionPane.YES_OPTION){
                 UserAccount selectedUserAccount = (UserAccount)tblDirectory.getValueAt(selectedRow, 1);
-                //System.out.println(userName);
-                //
-            for(UserAccount userAccount:this.ecoSystem.getUserAccountDirectory().getUserAccountList()){
-                if(userAccount.getUsername().equals(selectedUserAccount.getUsername())){
-                   // System.out.println("in delte delivery man");
-                    this.ecoSystem.getUserAccountDirectory().getUserAccountList().remove(userAccount);
-                    break;
+
+                for(UserAccount userAccount:this.ecoSystem.getUserAccountDirectory().getUserAccountList()){
+                    if(userAccount.getUsername().equals(selectedUserAccount.getUsername())){
+                        
+                        this.ecoSystem.getUserAccountDirectory().getUserAccountList().remove(userAccount);
+                        break;
+                    }
                 }
-            }
-            dB4OUtil.storeSystem(ecoSystem);
+                dB4OUtil.storeSystem(ecoSystem);
                 populate();
-//            }
-            }
+                //            }
+        }
         }else{
             JOptionPane.showMessageDialog(null, "Please select a Row!!");
         }
     }//GEN-LAST:event_btnDeleteActionPerformed
-
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAddDeliveryMan;
-    private javax.swing.JButton btnBack;
-    private javax.swing.JButton btnDelete;
-    private javax.swing.JButton btnUpdate;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblDirectory;
-    // End of variables declaration//GEN-END:variables
-
-    private List<UserAccount> fetchDeliveryMans() {
-        ecoSystem = dB4OUtil.retrieveSystem("fetchdeliveryman");
+        private List<UserAccount> fetchCustomers() {
+        ecoSystem = dB4OUtil.retrieveSystem("fetch cutomers");
         //To change body of generated methods, choose Tools | Templates.
         List<UserAccount> userAccounts = ecoSystem.getUserAccountDirectory().getUserAccountList();
-        List<UserAccount> deliveryMans = new ArrayList<UserAccount>();
+        List<UserAccount> customers = new ArrayList<UserAccount>();
         
         for(UserAccount userAccount : userAccounts){
-            if(userAccount.getRole().getRoleType() == Role.RoleType.DeliveryMan){
-                deliveryMans.add(userAccount);
+            if(userAccount.getRole().getRoleType() == Role.RoleType.Customer){
+                customers.add(userAccount);
                 //System.out.println(userAccount.getUsername());
             }
         }
         
-        return deliveryMans;
+        return customers;
     }
+    
+    
     public void populate(){
         DefaultTableModel dtm = (DefaultTableModel)tblDirectory.getModel();
         dtm.setRowCount(0);
-        this.deliveryMans = fetchDeliveryMans();
-        for(UserAccount ua : this.deliveryMans){
+        this.Customers = fetchCustomers();
+        for(UserAccount ua : this.Customers){
             Object[] row = new Object[dtm.getColumnCount()];
             row[0]= ua.getUser().getName();
             row[1]= ua;
@@ -235,4 +221,13 @@ public class ManageDeliveryManJPanel extends javax.swing.JPanel {
             dtm.addRow(row);
         }
     }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAddCustomer;
+    private javax.swing.JButton btnBack;
+    private javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnUpdate;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tblDirectory;
+    // End of variables declaration//GEN-END:variables
 }
