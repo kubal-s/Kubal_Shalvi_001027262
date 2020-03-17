@@ -33,7 +33,7 @@ public class ManageMenuJPanel extends javax.swing.JPanel {
         initComponents();
         this.userProcessContainer = userProcessContainer;
         this.dB4OUtil = dB4OUtil;
-        this.ecoSystem = dB4OUtil.retrieveSystem();
+        
         this.restaurant = restaurant;
         lblRestuarantName.setText(restaurant.getName());
         populate();
@@ -161,7 +161,14 @@ public class ManageMenuJPanel extends javax.swing.JPanel {
             int selectionResult = JOptionPane.showConfirmDialog(null, "Are you sure to delete??","Warning",selectionButton);
             if(selectionResult == JOptionPane.YES_OPTION){
                 String itemName = (String)tblDirectory.getValueAt(selectedRow, 0);
-                restaurant.getMenu().deleteMenuItem(itemName);
+                for(Restaurant r:this.ecoSystem.getRestaurantDirectory().getRestaurants()){
+                    if(r.getName().equals(restaurant.getName())){
+                        System.out.println("delted item");
+                        r.getMenu().deleteMenuItem(itemName);
+                        break;
+                    }
+                }                
+                dB4OUtil.storeSystem(ecoSystem);
                 populate();
             }
         }else{
@@ -195,8 +202,16 @@ public class ManageMenuJPanel extends javax.swing.JPanel {
     public void populate(){
         DefaultTableModel dtm = (DefaultTableModel)tblDirectory.getModel();
         dtm.setRowCount(0);
+        Restaurant currentResturant = null;
+        this.ecoSystem = dB4OUtil.retrieveSystem("manage menu");        
+        for(Restaurant r:this.ecoSystem.getRestaurantDirectory().getRestaurants()){
+            if(r.getName().equals(restaurant.getName())){
+                currentResturant = r;
+                break;
+            }
+        } 
         
-        for(Map.Entry<String,Double> em: restaurant.getMenu().getMenuitem().entrySet()){
+        for(Map.Entry<String,Double> em: currentResturant.getMenu().getMenuitem().entrySet()){
             Object[] row = new Object[dtm.getColumnCount()];
             row[0]=em.getKey();
             row[1]=em.getValue();
@@ -208,7 +223,7 @@ public class ManageMenuJPanel extends javax.swing.JPanel {
         lblRestuarantName.setText(restaurant.getName());
         DefaultTableModel dtm = (DefaultTableModel)tblDirectory.getModel();
         dtm.setRowCount(0);
-        
+        this.ecoSystem = dB4OUtil.retrieveSystem("manage menu");
         for(Map.Entry<String,Double> em: restaurant.getMenu().getMenuitem().entrySet()){
             Object[] row = new Object[dtm.getColumnCount()];
             row[0]=em.getKey();

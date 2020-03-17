@@ -34,7 +34,7 @@ public class DeliveryManWorkAreaJPanel extends javax.swing.JPanel {
         this.userProcessContainer = userProcessContainer;
         this.userAccount = account;
         this.dB4OUtil = dB4OUtil;
-        this.ecoSystem = dB4OUtil.retrieveSystem();
+        this.ecoSystem = dB4OUtil.retrieveSystem("delivery man work area");
       
         
         populateTable();

@@ -25,14 +25,15 @@ public class MainJFrame extends javax.swing.JFrame {
      * Creates new form MainJFrame
      */
     private EcoSystem ecoSystem;
-    private DB4OUtil dB4OUtil = DB4OUtil.getInstance();
+    private DB4OUtil dB4OUtil;
 
     public MainJFrame() {
         initComponents();
-        
+        dB4OUtil = DB4OUtil.getInstance();
         //system = ConfigureASystem.configure(); //me
         //dB4OUtil.storeSystem(system); //me
-        this.ecoSystem = dB4OUtil.retrieveSystem(); 
+        this.ecoSystem = dB4OUtil.retrieveSystem("main jframe"); 
+        dB4OUtil.storeSystem(ecoSystem);
         this.setSize(1680, 1050);
     }
 
@@ -133,8 +134,9 @@ public class MainJFrame extends javax.swing.JFrame {
         
         UserAccount currentUserAccount = null;
         Role roleOfCurrentUser = null;
+        this.ecoSystem = dB4OUtil.retrieveSystem("login"); 
 
-        for(UserAccount userAccount :ecoSystem.getUserAccountDirectory().getUserAccountList()){
+        for(UserAccount userAccount : ecoSystem.getUserAccountDirectory().getUserAccountList()){
             if(userAccount.getUsername().equals(username) && userAccount.getPassword().equals(password)){
                 currentUserAccount = userAccount;
                 roleOfCurrentUser = userAccount.getRole();
@@ -153,6 +155,7 @@ public class MainJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_loginJButtonActionPerformed
 
     private void logoutJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutJButtonActionPerformed
+        this.ecoSystem = dB4OUtil.retrieveSystem("main jframe");
         logoutJButton.setEnabled(false);
         userNameJTextField.setEnabled(true);
         passwordField.setEnabled(true);

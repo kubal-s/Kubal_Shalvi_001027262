@@ -37,7 +37,7 @@ public class UpdateMenuJPanel extends javax.swing.JPanel {
         initComponents();       
         this.userProcessContainer = userProcessContainer;
         this.dB4OUtil = dB4OUtil;
-        this.ecoSystem = dB4OUtil.retrieveSystem();
+        this.ecoSystem = dB4OUtil.retrieveSystem("update menu");
         this.restaurant = restaurant;
         lblRestuarantName.setText(this.restaurant.getName());
         this.menu = this.restaurant.getMenu();
@@ -168,7 +168,7 @@ public class UpdateMenuJPanel extends javax.swing.JPanel {
             //Menu menu = restaurant.getMenu();
             //menu.addItemToMenu(txtItemName.getText(), price);
             this.menu.updateMenuItem(this.oldItemName,txtItemName.getText(), price);
-            JOptionPane.showMessageDialog(null,"updated item to menu for resturant "+restaurant.getName()+"successfully!");
+            JOptionPane.showMessageDialog(null,"updated item to menu for resturant "+restaurant.getName()+" successfully!");
             return;
             //business.getRestaurantDirectory().
         } catch (Exception e) {

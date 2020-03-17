@@ -5,6 +5,7 @@
  */
 package userinterface.SystemAdminWorkArea;
 
+import Business.DB4OUtil.DB4OUtil;
 import Business.EcoSystem;
 import Business.Role.DeliverManRole;
 import Business.User.User;
@@ -23,12 +24,14 @@ public class AddDeliveryManJPanel extends javax.swing.JPanel {
     /**
      * Creates new form AddDeliveryManJPanel
      */
-    JPanel userProcessContainer;
-    EcoSystem ecosystem;
-    public AddDeliveryManJPanel(JPanel userProcessContainer,EcoSystem ecosystem) {
+    private JPanel userProcessContainer;
+    private EcoSystem ecosystem;
+    private DB4OUtil dB4OUtil;
+    public AddDeliveryManJPanel(JPanel userProcessContainer,DB4OUtil dB4OUtil) {
         initComponents();
         this.userProcessContainer=userProcessContainer;
-        this.ecosystem=ecosystem;
+        this.dB4OUtil = dB4OUtil;
+        this.ecosystem =  dB4OUtil.retrieveSystem("adddeliveryman");
     }
 
     /**
@@ -137,7 +140,14 @@ public class AddDeliveryManJPanel extends javax.swing.JPanel {
         
         UserAccount userAccount = ecosystem.getUserAccountDirectory().createUserAccount(txtUserName.getText(),txtPassword.getText() , user, new DeliverManRole());
         
+        
+        System.out.println(ecosystem.getUserAccountDirectory().getUserAccountList());
+        dB4OUtil.storeSystem(ecosystem);
+        
         JOptionPane.showMessageDialog(null, "Delivery man created successfully!");
+        txtFullName.setText("");
+        txtPassword.setText("");
+        txtUserName.setText("");
     }//GEN-LAST:event_btnAddMenuItemActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
@@ -146,8 +156,8 @@ public class AddDeliveryManJPanel extends javax.swing.JPanel {
         CardLayout layout =(CardLayout) this.userProcessContainer.getLayout();
         Component [] comps = this.userProcessContainer.getComponents();
         for(Component comp : comps){
-            if(comp instanceof ManageDeliveryMan){
-                ManageDeliveryMan mdm =(ManageDeliveryMan) comp;
+            if(comp instanceof ManageDeliveryManJPanel){
+                ManageDeliveryManJPanel mdm =(ManageDeliveryManJPanel) comp;
                 mdm.populate();
             }
         }

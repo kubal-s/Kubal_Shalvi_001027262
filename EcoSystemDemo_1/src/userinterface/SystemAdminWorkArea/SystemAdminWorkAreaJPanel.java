@@ -31,7 +31,7 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
         initComponents();
         this.userProcessContainer=userProcessContainer;
         this.dB4OUtil = dB4OUtil;
-        this.ecosystem= dB4OUtil.retrieveSystem();
+        this.ecosystem= dB4OUtil.retrieveSystem("sysadmin panel");
     }
    
     /**
@@ -89,7 +89,7 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
 
     private void btnManageDeliveryManActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageDeliveryManActionPerformed
         // TODO add your handling code here:
-        JPanel manageDeliveryMan = new ManageDeliveryMan(userProcessContainer,ecosystem);
+        JPanel manageDeliveryMan = new ManageDeliveryManJPanel(userProcessContainer,dB4OUtil);
         userProcessContainer.add("ManageDeliveryMan",manageDeliveryMan);
         CardLayout cardLayout = (CardLayout)userProcessContainer.getLayout();
         cardLayout.next(this.userProcessContainer);

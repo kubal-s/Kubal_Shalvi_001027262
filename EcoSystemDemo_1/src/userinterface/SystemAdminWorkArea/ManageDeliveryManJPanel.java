@@ -5,6 +5,7 @@
  */
 package userinterface.SystemAdminWorkArea;
 
+import Business.DB4OUtil.DB4OUtil;
 import Business.EcoSystem;
 import Business.Role.Role;
 import Business.UserAccount.UserAccount;
@@ -13,6 +14,7 @@ import java.awt.Component;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -20,20 +22,22 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author akhil
  */
-public class ManageDeliveryMan extends javax.swing.JPanel {
+public class ManageDeliveryManJPanel extends javax.swing.JPanel {
 
     /**
-     * Creates new form ManageDeliveryMan
+     * Creates new form ManageDeliveryManJPanel
      */
-    JPanel userProcessContainer;
-    EcoSystem ecosystem;
-    List<UserAccount> deliveryMans;
+    private JPanel userProcessContainer;
+    private EcoSystem ecoSystem;
+    private List<UserAccount> deliveryMans;
+    private DB4OUtil dB4OUtil;
     
-    public ManageDeliveryMan(JPanel userProcessContainer,EcoSystem ecosystem) {
+    public ManageDeliveryManJPanel(JPanel userProcessContainer,DB4OUtil dB4OUtil) {
         initComponents();
         this.userProcessContainer=userProcessContainer;
-        this.ecosystem=ecosystem;
-        this.deliveryMans = fetchDeliveryMans();
+        this.dB4OUtil = dB4OUtil;
+        this.ecoSystem = dB4OUtil.retrieveSystem("managedeliveryman");
+        //this.deliveryMans = fetchDeliveryMans();
         populate();
     }
 
@@ -49,7 +53,9 @@ public class ManageDeliveryMan extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblDirectory = new javax.swing.JTable();
         btnBack = new javax.swing.JButton();
-        btnAddItemToMenu = new javax.swing.JButton();
+        btnAddDeliveryMan = new javax.swing.JButton();
+        btnUpdate = new javax.swing.JButton();
+        btnDelete = new javax.swing.JButton();
 
         tblDirectory.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -79,10 +85,24 @@ public class ManageDeliveryMan extends javax.swing.JPanel {
             }
         });
 
-        btnAddItemToMenu.setText("Add");
-        btnAddItemToMenu.addActionListener(new java.awt.event.ActionListener() {
+        btnAddDeliveryMan.setText("Add");
+        btnAddDeliveryMan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddItemToMenuActionPerformed(evt);
+                btnAddDeliveryManActionPerformed(evt);
+            }
+        });
+
+        btnUpdate.setText("Update");
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateActionPerformed(evt);
+            }
+        });
+
+        btnDelete.setText("Delete");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
             }
         });
 
@@ -98,8 +118,13 @@ public class ManageDeliveryMan extends javax.swing.JPanel {
                 .addContainerGap(16, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnAddItemToMenu)
+                .addComponent(btnAddDeliveryMan)
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnUpdate, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnDelete, javax.swing.GroupLayout.Alignment.TRAILING)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -109,8 +134,12 @@ public class ManageDeliveryMan extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnAddItemToMenu)
-                .addContainerGap(80, Short.MAX_VALUE))
+                .addComponent(btnAddDeliveryMan)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnUpdate)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnDelete)
+                .addContainerGap(10, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -121,31 +150,73 @@ public class ManageDeliveryMan extends javax.swing.JPanel {
         layout.previous(userProcessContainer);
     }//GEN-LAST:event_btnBackActionPerformed
 
-    private void btnAddItemToMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddItemToMenuActionPerformed
+    private void btnAddDeliveryManActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddDeliveryManActionPerformed
         // TODO add your handling code here:
-        JPanel addDeliveryManJPanel = new AddDeliveryManJPanel(userProcessContainer,ecosystem);
+        JPanel addDeliveryManJPanel = new AddDeliveryManJPanel(userProcessContainer,dB4OUtil);
         userProcessContainer.add("addDeliveryManJPanel",addDeliveryManJPanel);
         CardLayout cardLayout = (CardLayout)userProcessContainer.getLayout();
         cardLayout.next(this.userProcessContainer);
-    }//GEN-LAST:event_btnAddItemToMenuActionPerformed
+    }//GEN-LAST:event_btnAddDeliveryManActionPerformed
+
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = tblDirectory.getSelectedRow();
+        if(selectedRow>=0){
+            String userName = (String)tblDirectory.getValueAt(selectedRow, 1);
+            JPanel updateDeliveryManJPanel = new UpdateDeliveryManJPanel(userProcessContainer,dB4OUtil,userName);
+            userProcessContainer.add("updateDeliveryMan",updateDeliveryManJPanel);
+            CardLayout cardLayout = (CardLayout)userProcessContainer.getLayout();
+            cardLayout.next(this.userProcessContainer);
+        }else{
+            JOptionPane.showMessageDialog(null, "Please select a Row!!");
+        }
+    }//GEN-LAST:event_btnUpdateActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = tblDirectory.getSelectedRow();
+        if(selectedRow>=0){
+            int selectionButton = JOptionPane.YES_NO_OPTION;
+            int selectionResult = JOptionPane.showConfirmDialog(null, "Are you sure to delete??","Warning",selectionButton);
+            if(selectionResult == JOptionPane.YES_OPTION){
+                String userName = (String)tblDirectory.getValueAt(selectedRow, 1);
+                System.out.println(userName);
+                //
+//            for(UserAccount userAccount:this.ecoSystem.getUserAccountDirectory().getUserAccountList()){
+//                if(userAccount.getUsername().equals(userName)){
+//                    System.out.println("in delte delivery man");
+//                    this.ecoSystem.getUserAccountDirectory().getUserAccountList().remove(userAccount);
+//                    break;
+//                }
+//            }
+//                populate();
+//            }
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "Please select a Row!!");
+        }
+    }//GEN-LAST:event_btnDeleteActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAddItemToMenu;
+    private javax.swing.JButton btnAddDeliveryMan;
     private javax.swing.JButton btnBack;
+    private javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnUpdate;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblDirectory;
     // End of variables declaration//GEN-END:variables
 
     private List<UserAccount> fetchDeliveryMans() {
-        
+        ecoSystem = dB4OUtil.retrieveSystem("fetchdeliveryman");
         //To change body of generated methods, choose Tools | Templates.
-        List<UserAccount> userAccounts = ecosystem.getUserAccountDirectory().getUserAccountList();
+        List<UserAccount> userAccounts = ecoSystem.getUserAccountDirectory().getUserAccountList();
         List<UserAccount> deliveryMans = new ArrayList<UserAccount>();
         
         for(UserAccount userAccount : userAccounts){
             if(userAccount.getRole().getRoleType() == Role.RoleType.DeliveryMan){
                 deliveryMans.add(userAccount);
+                System.out.println(userAccount.getUsername());
             }
         }
         
@@ -154,11 +225,11 @@ public class ManageDeliveryMan extends javax.swing.JPanel {
     public void populate(){
         DefaultTableModel dtm = (DefaultTableModel)tblDirectory.getModel();
         dtm.setRowCount(0);
-        
-        for(UserAccount ua : deliveryMans){
+        this.deliveryMans = fetchDeliveryMans();
+        for(UserAccount ua : this.deliveryMans){
             Object[] row = new Object[dtm.getColumnCount()];
             row[0]= ua.getUser().getName();
-            row[1]= ua.getUsername();
+            row[1]= ua;
             row[2]= ua.getPassword();
             dtm.addRow(row);
         }

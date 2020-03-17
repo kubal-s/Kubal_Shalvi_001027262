@@ -32,7 +32,7 @@ public class AddMenuJPanel extends javax.swing.JPanel {
         initComponents();
         this.userProcessContainer = userProcessContainer;
         this.dB4OUtil = dB4OUtil;
-        this.ecoSystem = dB4OUtil.retrieveSystem();
+        this.ecoSystem = dB4OUtil.retrieveSystem("addmenu");
         this.restaurant = restaurant;
         lblRestuarantName.setText(this.restaurant.getName());
     }
@@ -150,16 +150,28 @@ public class AddMenuJPanel extends javax.swing.JPanel {
         }
         try {
            Double price = (Double)Double.parseDouble(txtItemPrice.getText()); 
+
             Menu menu = restaurant.getMenu();
             menu.addItemToMenu(txtItemName.getText(), price);
-            dB4OUtil.storeSystem(ecoSystem);
+//            dB4OUtil.storeSystem(ecoSystem);
             for(Restaurant r : ecoSystem.getRestaurantDirectory().getRestaurants()){
-                Menu mm = r.getMenu();
-                for(Map.Entry<String,Double> em: mm.getMenuitem().entrySet()){
-                    System.out.println(em.getKey());
+                if(r.getName().equals(restaurant.getName())){
+                    r.setMenu(menu);
+                   // Menu menu = restaurant.getMenu();
+                    //menu.addItemToMenu(txtItemName.getText(), price);
+                    break;
+                }
+
+            }
+            for(Restaurant r : ecoSystem.getRestaurantDirectory().getRestaurants()){
+                for(Map.Entry<String,Double> me : r.getMenu().getMenuitem().entrySet()){
+                    System.out.println(me.getKey());
                 }
             }
+            dB4OUtil.storeSystem(ecoSystem);
             JOptionPane.showMessageDialog(null,"Added item to menu for resturant "+restaurant.getName()+" successfully!");
+            txtItemName.setText("");
+            txtItemPrice.setText("");
             return;
             //business.getRestaurantDirectory().
         } catch (Exception e) {

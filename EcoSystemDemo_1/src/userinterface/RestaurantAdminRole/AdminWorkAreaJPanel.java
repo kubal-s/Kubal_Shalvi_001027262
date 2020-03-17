@@ -25,7 +25,7 @@ public class AdminWorkAreaJPanel extends javax.swing.JPanel {
     public AdminWorkAreaJPanel(JPanel userProcessContainer, UserAccount userAccount, DB4OUtil dB4OUtil) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
-        this.ecoSystem = dB4OUtil.retrieveSystem();
+        this.ecoSystem = dB4OUtil.retrieveSystem("resadmin");
         this.dB4OUtil = dB4OUtil;
         for(Restaurant r : this.ecoSystem.getRestaurantDirectory().getRestaurants()){
             if(r.getRestaurantAdmin().getUser().getName().equals(userAccount.getUser().getName())){
