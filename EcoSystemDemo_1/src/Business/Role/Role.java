@@ -4,6 +4,7 @@
  */
 package Business.Role;
 
+import Business.DB4OUtil.DB4OUtil;
 import Business.EcoSystem;
 
 import Business.Organization;
@@ -41,7 +42,7 @@ public abstract class Role {
     
     public abstract JPanel createWorkArea(JPanel userProcessContainer, 
             UserAccount account,  
-            EcoSystem business);
+            DB4OUtil dB4OUtil);
 
     @Override
     public String toString() {

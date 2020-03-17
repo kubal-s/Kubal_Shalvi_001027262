@@ -1,6 +1,7 @@
 package userinterface.RestaurantAdminRole;
 
 
+import Business.DB4OUtil.DB4OUtil;
 import Business.EcoSystem;
 import Business.Restaurant.Menu;
 import Business.Restaurant.Restaurant;
@@ -27,14 +28,16 @@ public class UpdateMenuJPanel extends javax.swing.JPanel {
      * Creates new form UpdateMenuJPanel
      */
     private JPanel userProcessContainer;
-    private EcoSystem business;
+    private EcoSystem ecoSystem;
     private Restaurant restaurant;
     private Menu menu;
+    private DB4OUtil  dB4OUtil;
     private String oldItemName;
-    public UpdateMenuJPanel(JPanel userProcessContainer,EcoSystem business, Restaurant restaurant,String itemName) {
+    public UpdateMenuJPanel(JPanel userProcessContainer,DB4OUtil dB4OUtil, Restaurant restaurant,String itemName) {
         initComponents();       
         this.userProcessContainer = userProcessContainer;
-        this.business = business;
+        this.dB4OUtil = dB4OUtil;
+        this.ecoSystem = dB4OUtil.retrieveSystem();
         this.restaurant = restaurant;
         lblRestuarantName.setText(this.restaurant.getName());
         this.menu = this.restaurant.getMenu();

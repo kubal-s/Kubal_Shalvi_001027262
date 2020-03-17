@@ -5,6 +5,7 @@
  */
 package userinterface.RestaurantAdminRole;
 
+import Business.DB4OUtil.DB4OUtil;
 import Business.EcoSystem;
 import Business.Restaurant.Menu;
 import Business.Restaurant.Restaurant;
@@ -25,12 +26,14 @@ public class ManageMenuJPanel extends javax.swing.JPanel {
      * Creates new form ManageMenuJPanel
      */
     private JPanel userProcessContainer;
-    private EcoSystem business;
+    private EcoSystem ecoSystem;
     private Restaurant restaurant;
-    public ManageMenuJPanel(JPanel userProcessContainer,EcoSystem business, Restaurant restaurant) {
+    private DB4OUtil dB4OUtil;
+    public ManageMenuJPanel(JPanel userProcessContainer,DB4OUtil dB4OUtil, Restaurant restaurant) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
-        this.business = business;
+        this.dB4OUtil = dB4OUtil;
+        this.ecoSystem = dB4OUtil.retrieveSystem();
         this.restaurant = restaurant;
         lblRestuarantName.setText(restaurant.getName());
         populate();
@@ -168,7 +171,7 @@ public class ManageMenuJPanel extends javax.swing.JPanel {
 
     private void btnAddItemToMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddItemToMenuActionPerformed
         // TODO add your handling code here:
-        JPanel addMenuJPanel = new AddMenuJPanel(userProcessContainer,business,restaurant);
+        JPanel addMenuJPanel = new AddMenuJPanel(userProcessContainer,dB4OUtil,restaurant);
         userProcessContainer.add("addItemToMenu",addMenuJPanel);
         CardLayout cardLayout = (CardLayout)userProcessContainer.getLayout();
         cardLayout.next(this.userProcessContainer);
@@ -179,7 +182,7 @@ public class ManageMenuJPanel extends javax.swing.JPanel {
         int selectedRow = tblDirectory.getSelectedRow();
         if(selectedRow>=0){
             String itemName = (String)tblDirectory.getValueAt(selectedRow, 0);
-            JPanel updateMenuJPanel = new UpdateMenuJPanel(userProcessContainer,business,restaurant,itemName);
+            JPanel updateMenuJPanel = new UpdateMenuJPanel(userProcessContainer,dB4OUtil,restaurant,itemName);
             userProcessContainer.add("updateMenuItem",updateMenuJPanel);
             CardLayout cardLayout = (CardLayout)userProcessContainer.getLayout();
             cardLayout.next(this.userProcessContainer);

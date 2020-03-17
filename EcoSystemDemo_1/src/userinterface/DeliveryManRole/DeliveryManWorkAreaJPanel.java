@@ -4,6 +4,7 @@
  */
 package userinterface.DeliveryManRole;
 
+import Business.DB4OUtil.DB4OUtil;
 import Business.EcoSystem;
 
 import Business.UserAccount.UserAccount;
@@ -20,19 +21,20 @@ import javax.swing.table.DefaultTableModel;
 public class DeliveryManWorkAreaJPanel extends javax.swing.JPanel {
 
     private JPanel userProcessContainer;
-    private EcoSystem business;
+    private EcoSystem ecoSystem;
     private UserAccount userAccount;
-    
+    private DB4OUtil dB4OUtil;
     
     /**
      * Creates new form LabAssistantWorkAreaJPanel
      */
-    public DeliveryManWorkAreaJPanel(JPanel userProcessContainer, UserAccount account, EcoSystem business) {
+    public DeliveryManWorkAreaJPanel(JPanel userProcessContainer, UserAccount account, DB4OUtil dB4OUtil) {
         initComponents();
         
         this.userProcessContainer = userProcessContainer;
         this.userAccount = account;
-        this.business = business;
+        this.dB4OUtil = dB4OUtil;
+        this.ecoSystem = dB4OUtil.retrieveSystem();
       
         
         populateTable();

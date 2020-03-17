@@ -5,11 +5,13 @@
  */
 package userinterface.RestaurantAdminRole;
 
+import Business.DB4OUtil.DB4OUtil;
 import Business.EcoSystem;
 import Business.Restaurant.Menu;
 import Business.Restaurant.Restaurant;
 import java.awt.CardLayout;
 import java.awt.Component;
+import java.util.Map;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -23,12 +25,14 @@ public class AddMenuJPanel extends javax.swing.JPanel {
      * Creates new form AddMenuJPanel
      */
     private JPanel userProcessContainer;
-    private EcoSystem business;
+    private EcoSystem ecoSystem;
     private Restaurant restaurant;
-    public AddMenuJPanel(JPanel userProcessContainer,EcoSystem business, Restaurant restaurant) {
+    private DB4OUtil dB4OUtil;
+    public AddMenuJPanel(JPanel userProcessContainer,DB4OUtil dB4OUtil, Restaurant restaurant) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
-        this.business = business;
+        this.dB4OUtil = dB4OUtil;
+        this.ecoSystem = dB4OUtil.retrieveSystem();
         this.restaurant = restaurant;
         lblRestuarantName.setText(this.restaurant.getName());
     }
@@ -148,7 +152,14 @@ public class AddMenuJPanel extends javax.swing.JPanel {
            Double price = (Double)Double.parseDouble(txtItemPrice.getText()); 
             Menu menu = restaurant.getMenu();
             menu.addItemToMenu(txtItemName.getText(), price);
-            JOptionPane.showMessageDialog(null,"Added item to menu for resturant "+restaurant.getName()+"successfully!");
+            dB4OUtil.storeSystem(ecoSystem);
+            for(Restaurant r : ecoSystem.getRestaurantDirectory().getRestaurants()){
+                Menu mm = r.getMenu();
+                for(Map.Entry<String,Double> em: mm.getMenuitem().entrySet()){
+                    System.out.println(em.getKey());
+                }
+            }
+            JOptionPane.showMessageDialog(null,"Added item to menu for resturant "+restaurant.getName()+" successfully!");
             return;
             //business.getRestaurantDirectory().
         } catch (Exception e) {

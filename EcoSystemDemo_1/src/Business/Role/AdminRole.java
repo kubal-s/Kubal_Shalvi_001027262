@@ -4,6 +4,7 @@
  */
 package Business.Role;
 
+import Business.DB4OUtil.DB4OUtil;
 import Business.EcoSystem;
 
 import Business.Organization;
@@ -24,8 +25,8 @@ public class AdminRole extends Role{
     
     
     @Override
-    public JPanel createWorkArea(JPanel userProcessContainer, UserAccount account, EcoSystem business) {
-        return new AdminWorkAreaJPanel(userProcessContainer, account, business);
+    public JPanel createWorkArea(JPanel userProcessContainer, UserAccount account, DB4OUtil dB4OUtil) {
+        return new AdminWorkAreaJPanel(userProcessContainer, account, dB4OUtil);
     }
 
     

@@ -4,6 +4,7 @@
  */
 package Business.Role;
 
+import Business.DB4OUtil.DB4OUtil;
 import Business.EcoSystem;
 
 import Business.Organization;
@@ -24,7 +25,7 @@ public class CustomerRole extends Role{
     
     
     
-    public JPanel createWorkArea(JPanel userProcessContainer, UserAccount account, EcoSystem business) {
+    public JPanel createWorkArea(JPanel userProcessContainer, UserAccount account, DB4OUtil dB4OUtil) {
         return new CustomerAreaJPanel(userProcessContainer, account);
     }
     

@@ -5,6 +5,7 @@
  */
 package Business.Role;
 
+import Business.DB4OUtil.DB4OUtil;
 import Business.EcoSystem;
 import Business.UserAccount.UserAccount;
 import javax.swing.JPanel;
@@ -22,8 +23,8 @@ public class DeliverManRole extends Role {
 
     
     @Override
-    public JPanel createWorkArea(JPanel userProcessContainer, UserAccount account, EcoSystem business) {
-        return new DeliveryManWorkAreaJPanel(userProcessContainer,account,business);//To change body of generated methods, choose Tools | Templates.
+    public JPanel createWorkArea(JPanel userProcessContainer, UserAccount account, DB4OUtil dB4OUtil) {
+        return new DeliveryManWorkAreaJPanel(userProcessContainer,account,dB4OUtil);//To change body of generated methods, choose Tools | Templates.
     }
     
 }

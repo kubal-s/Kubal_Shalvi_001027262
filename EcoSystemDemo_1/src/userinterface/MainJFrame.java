@@ -24,15 +24,15 @@ public class MainJFrame extends javax.swing.JFrame {
     /**
      * Creates new form MainJFrame
      */
-    private EcoSystem system;
+    private EcoSystem ecoSystem;
     private DB4OUtil dB4OUtil = DB4OUtil.getInstance();
 
     public MainJFrame() {
         initComponents();
         
-        system = ConfigureASystem.configure(); //me
-        dB4OUtil.storeSystem(system); //me
-        system = dB4OUtil.retrieveSystem(); 
+        //system = ConfigureASystem.configure(); //me
+        //dB4OUtil.storeSystem(system); //me
+        this.ecoSystem = dB4OUtil.retrieveSystem(); 
         this.setSize(1680, 1050);
     }
 
@@ -134,14 +134,14 @@ public class MainJFrame extends javax.swing.JFrame {
         UserAccount currentUserAccount = null;
         Role roleOfCurrentUser = null;
 
-        for(UserAccount userAccount :system.getUserAccountDirectory().getUserAccountList()){
+        for(UserAccount userAccount :ecoSystem.getUserAccountDirectory().getUserAccountList()){
             if(userAccount.getUsername().equals(username) && userAccount.getPassword().equals(password)){
                 currentUserAccount = userAccount;
                 roleOfCurrentUser = userAccount.getRole();
                 break;
             }
         }
-        JPanel createWorkArea = roleOfCurrentUser.createWorkArea(container, currentUserAccount, system);
+        JPanel createWorkArea = roleOfCurrentUser.createWorkArea(container, currentUserAccount, dB4OUtil);
         container.add("workArea",createWorkArea);
         CardLayout cardLayout = (CardLayout)container.getLayout();
         cardLayout.next(this.container);
@@ -166,7 +166,7 @@ public class MainJFrame extends javax.swing.JFrame {
         container.add("blank", blankJP);
         CardLayout crdLyt = (CardLayout) container.getLayout();
         crdLyt.next(container);
-        dB4OUtil.storeSystem(system);
+        dB4OUtil.storeSystem(ecoSystem);
     }//GEN-LAST:event_logoutJButtonActionPerformed
 
     /**

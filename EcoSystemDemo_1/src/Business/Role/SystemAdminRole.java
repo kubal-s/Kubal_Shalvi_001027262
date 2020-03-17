@@ -4,6 +4,7 @@
  */
 package Business.Role;
 
+import Business.DB4OUtil.DB4OUtil;
 import Business.EcoSystem;
 
 import Business.UserAccount.UserAccount;
@@ -23,8 +24,8 @@ public class SystemAdminRole extends Role{
 
     
     
-    public JPanel createWorkArea(JPanel userProcessContainer, UserAccount account, EcoSystem system) {
-        return new SystemAdminWorkAreaJPanel(userProcessContainer, system);
+    public JPanel createWorkArea(JPanel userProcessContainer, UserAccount account, DB4OUtil dB4OUtil) {
+        return new SystemAdminWorkAreaJPanel(userProcessContainer, dB4OUtil);
     }
     
 }

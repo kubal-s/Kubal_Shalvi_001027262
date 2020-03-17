@@ -3,6 +3,7 @@
 package userinterface.RestaurantAdminRole;
 
 
+import Business.DB4OUtil.DB4OUtil;
 import Business.EcoSystem;
 import Business.Restaurant.Restaurant;
 import Business.UserAccount.UserAccount;
@@ -16,15 +17,17 @@ import javax.swing.JPanel;
 public class AdminWorkAreaJPanel extends javax.swing.JPanel {
     
     JPanel userProcessContainer;
-    EcoSystem business;
+    EcoSystem ecoSystem;
     Restaurant restaurant;
+    DB4OUtil dB4OUtil;
     
     /** Creates new form AdminWorkAreaJPanel */
-    public AdminWorkAreaJPanel(JPanel userProcessContainer, UserAccount userAccount, EcoSystem business) {
+    public AdminWorkAreaJPanel(JPanel userProcessContainer, UserAccount userAccount, DB4OUtil dB4OUtil) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
-        this.business = business;
-        for(Restaurant r : this.business.getRestaurantDirectory().getRestaurants()){
+        this.ecoSystem = dB4OUtil.retrieveSystem();
+        this.dB4OUtil = dB4OUtil;
+        for(Restaurant r : this.ecoSystem.getRestaurantDirectory().getRestaurants()){
             if(r.getRestaurantAdmin().getUser().getName().equals(userAccount.getUser().getName())){
                 this.restaurant = r;
                 break;
@@ -92,7 +95,7 @@ public class AdminWorkAreaJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_userJButtonActionPerformed
 
     private void btnManageMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageMenuActionPerformed
-        JPanel manageMenu = new ManageMenuJPanel(userProcessContainer,business,restaurant);
+        JPanel manageMenu = new ManageMenuJPanel(userProcessContainer,dB4OUtil,restaurant);
         userProcessContainer.add("ManageMenu",manageMenu);
         CardLayout cardLayout = (CardLayout)userProcessContainer.getLayout();
         cardLayout.next(this.userProcessContainer);

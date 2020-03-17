@@ -5,6 +5,7 @@
  */
 package userinterface.SystemAdminWorkArea;
 
+import Business.DB4OUtil.DB4OUtil;
 import Business.EcoSystem;
 
 import Business.Organization;
@@ -23,12 +24,14 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
     /**
      * Creates new form SystemAdminWorkAreaJPanel
      */
-    JPanel userProcessContainer;
-    EcoSystem ecosystem;
-    public SystemAdminWorkAreaJPanel(JPanel userProcessContainer,EcoSystem ecosystem) {
+    private JPanel userProcessContainer;
+    private EcoSystem ecosystem;
+    private DB4OUtil dB4OUtil;
+    public SystemAdminWorkAreaJPanel(JPanel userProcessContainer,DB4OUtil dB4OUtil) {
         initComponents();
         this.userProcessContainer=userProcessContainer;
-        this.ecosystem=ecosystem;
+        this.dB4OUtil = dB4OUtil;
+        this.ecosystem= dB4OUtil.retrieveSystem();
     }
    
     /**
