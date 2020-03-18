@@ -32,4 +32,7 @@ public class RestaurantDirectory {
         this.restaurants.add(r);
         return r;
     }
+    public void removeRestaurant(Restaurant restaurant){
+        this.restaurants.remove(restaurant);
+    }
 }

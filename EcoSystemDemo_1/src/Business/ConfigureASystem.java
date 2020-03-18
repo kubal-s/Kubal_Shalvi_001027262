@@ -37,7 +37,8 @@ public class ConfigureASystem {
         //created one resturant administrators
         User user3 = system.getUserDirectory().createUser("User3"); //employee name
         
-        UserAccount ua3 = system.getUserAccountDirectory().createUserAccount("resadmin", "resadmin", user3, new AdminRole());
+        UserAccount ua3 = system.getUserAccountDirectory().createUserAccount("resadmin1", "resadmin1", user3, new AdminRole());
+        
         
         //created one delivery person
         User user4 = system.getUserDirectory().createUser("User4"); //employee name
@@ -49,6 +50,10 @@ public class ConfigureASystem {
         
         UserAccount ua5 = system.getUserAccountDirectory().createUserAccount("customer", "customer", user5, new CustomerRole());
         
+        //created one resturant administrators
+        User user6 = system.getUserDirectory().createUser("User6"); //employee name
+        
+        UserAccount ua6 = system.getUserAccountDirectory().createUserAccount("resadmin2", "resadmin2", user6, new AdminRole());
        //create one resturant
         Menu menu1 = new Menu();
         menu1.addItemToMenu("rice",7.0);
@@ -60,7 +65,7 @@ public class ConfigureASystem {
         menu2.addItemToMenu("cheese pizza",10.0);
         menu2.addItemToMenu("chicken pizza",14.0);
         
-        Restaurant restaurant2 = system.getRestaurantDirectory().createRestaurant(menu2, "Pizza Hut", null);
+        Restaurant restaurant2 = system.getRestaurantDirectory().createRestaurant(menu2, "Pizza Hut", ua6);
         return system;
     }
     

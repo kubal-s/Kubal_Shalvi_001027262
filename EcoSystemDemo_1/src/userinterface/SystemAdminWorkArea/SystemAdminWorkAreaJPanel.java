@@ -88,7 +88,11 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnManageCustomersActionPerformed
 
     private void btnManageRestaurantsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageRestaurantsActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here:        
+        JPanel manageRestuarantsJPanel = new ManageRestuarantsJPanel(userProcessContainer,dB4OUtil);
+        userProcessContainer.add("manageRestuarants",manageRestuarantsJPanel);
+        CardLayout cardLayout = (CardLayout)userProcessContainer.getLayout();
+        cardLayout.next(this.userProcessContainer);
     }//GEN-LAST:event_btnManageRestaurantsActionPerformed
 
     private void btnManageDeliveryManActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageDeliveryManActionPerformed
