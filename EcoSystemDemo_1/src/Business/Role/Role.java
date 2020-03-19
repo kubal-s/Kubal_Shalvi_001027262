@@ -52,6 +52,28 @@ public abstract class Role {
     public RoleType getRoleType(){
         return roletype;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 67 * hash + (this.roletype != null ? this.roletype.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Role other = (Role) obj;
+        if (this.roletype != other.roletype) {
+            return false;
+        }
+        return true;
+    }
     
     
 }

@@ -67,17 +67,17 @@ public class ManageOrdersJPanel extends javax.swing.JPanel {
 
         tblDirectory.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Sender", "Requested Date", "null", "null"
+                "Sender", "Requested Date", "Status"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -145,6 +145,11 @@ public class ManageOrdersJPanel extends javax.swing.JPanel {
         int selectedRow = tblDirectory.getSelectedRow();
         if(selectedRow>=0){
             WorkRequest wr = (WorkRequest)tblDirectory.getValueAt(selectedRow, 0);
+            if(!wr.getStatus().equals("Requested")){
+                JOptionPane.showMessageDialog(null, "Please select request that needs processing");
+                return;
+            }
+            
             JPanel processRequestJPanel = new ProcessRequestJPanel(userProcessContainer,dB4OUtil,restaurant,wr);
             userProcessContainer.add("processRequest",processRequestJPanel);
             CardLayout cardLayout = (CardLayout)userProcessContainer.getLayout();
@@ -154,18 +159,18 @@ public class ManageOrdersJPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnProcessRequestActionPerformed
     
-    public List<WorkRequest> fetchWorkRequests(){
+    public List<WorkRequest> fetchWorkRequests(Restaurant r){
         this.ecoSystem = dB4OUtil.retrieveSystem("");
         List<WorkRequest>  workRequest = new ArrayList<WorkRequest>();
         for(WorkRequest wr : ecoSystem.getWorkQueue().getWorkRequestList()){
-            if(wr.getReceiver().equals(restaurant)){
+            if(wr.getReceiver().equals(r)){
                workRequest.add(wr);
             }
         }
         return workRequest;
     }
     public void populate(Restaurant r){
-        List<WorkRequest> workRequests = fetchWorkRequests();
+        List<WorkRequest> workRequests = fetchWorkRequests(r);
         this.restaurant = r;
         lblRestuarantName.setText(restaurant.getName());
         DefaultTableModel dtm = (DefaultTableModel)tblDirectory.getModel();
@@ -174,6 +179,8 @@ public class ManageOrdersJPanel extends javax.swing.JPanel {
         for(WorkRequest wr:workRequests){
             Object[] row = new Object[dtm.getColumnCount()];
             row[0]=wr;
+            row[1]=wr.getRequestDate();
+            row[2]=wr.getStatus();
             dtm.addRow(row);
         }
 

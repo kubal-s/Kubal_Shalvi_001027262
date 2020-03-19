@@ -25,6 +25,7 @@ public class WorkRequest {
     private Date resolveDate;
     private Map<Item,Integer> cart;
     
+    
     public WorkRequest(){
         requestDate = new Date();
         cart = new HashMap<Item, Integer>();
@@ -98,6 +99,48 @@ public class WorkRequest {
     @Override
     public String toString() {
         return sender.toString(); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 71 * hash + (this.message != null ? this.message.hashCode() : 0);
+        hash = 71 * hash + (this.sender != null ? this.sender.hashCode() : 0);
+        hash = 71 * hash + (this.receiver != null ? this.receiver.hashCode() : 0);
+        hash = 71 * hash + (this.status != null ? this.status.hashCode() : 0);
+        hash = 71 * hash + (this.requestDate != null ? this.requestDate.hashCode() : 0);
+        hash = 71 * hash + (this.cart != null ? this.cart.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final WorkRequest other = (WorkRequest) obj;
+        if ((this.message == null) ? (other.message != null) : !this.message.equals(other.message)) {
+            return false;
+        }
+        if (this.sender != other.sender && (this.sender == null || !this.sender.equals(other.sender))) {
+            return false;
+        }
+        if (this.receiver != other.receiver && (this.receiver == null || !this.receiver.equals(other.receiver))) {
+            return false;
+        }
+        if ((this.status == null) ? (other.status != null) : !this.status.equals(other.status)) {
+            return false;
+        }
+        if (this.requestDate != other.requestDate && (this.requestDate == null || !this.requestDate.equals(other.requestDate))) {
+            return false;
+        }
+        if (this.cart != other.cart && (this.cart == null || !this.cart.equals(other.cart))) {
+            return false;
+        }
+        return true;
     }
     
 }

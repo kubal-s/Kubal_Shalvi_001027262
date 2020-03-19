@@ -67,7 +67,40 @@ public class UserAccount {
     public String toString() {
         return username;
     }
-    
-    
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 17 * hash + (this.username != null ? this.username.hashCode() : 0);
+        hash = 17 * hash + (this.password != null ? this.password.hashCode() : 0);
+        hash = 17 * hash + (this.user != null ? this.user.hashCode() : 0);
+        hash = 17 * hash + (this.role != null ? this.role.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final UserAccount other = (UserAccount) obj;
+        if ((this.username == null) ? (other.username != null) : !this.username.equals(other.username)) {
+            return false;
+        }
+        if ((this.password == null) ? (other.password != null) : !this.password.equals(other.password)) {
+            return false;
+        }
+        if (this.user != other.user && (this.user == null || !this.user.equals(other.user))) {
+            return false;
+        }
+        if (this.role != other.role && (this.role == null || !this.role.equals(other.role))) {
+            return false;
+        }
+        return true;
+    }
+
     
 }
