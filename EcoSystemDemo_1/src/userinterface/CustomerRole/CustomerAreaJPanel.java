@@ -43,7 +43,7 @@ public class CustomerAreaJPanel extends javax.swing.JPanel {
         this.userProcessContainer = userProcessContainer;
         this.dB4OUtil = dB4OUtil;
         this.userAccount = account;
-        this.ecoSystem = dB4OUtil.retrieveSystem("");
+        
         this.currentRestaurant = null;
         this.workRequest = null;
         initialize();
@@ -72,6 +72,7 @@ public class CustomerAreaJPanel extends javax.swing.JPanel {
         btnSubmitCart = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblItemsDirectory = new javax.swing.JTable();
+        btnTrackOrders = new javax.swing.JButton();
 
         tblCartDirectory.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -154,6 +155,13 @@ public class CustomerAreaJPanel extends javax.swing.JPanel {
             tblItemsDirectory.getColumnModel().getColumn(2).setResizable(false);
         }
 
+        btnTrackOrders.setText("TrackOrders");
+        btnTrackOrders.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTrackOrdersActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -165,28 +173,34 @@ public class CustomerAreaJPanel extends javax.swing.JPanel {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnSubmitCart))
-                    .addComponent(comboxResturant, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnAddToCart)))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(comboxResturant, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnTrackOrders))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(btnAddToCart))))
                 .addContainerGap(214, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(30, 30, 30)
+                .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnSubmitCart)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(comboxResturant, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(comboxResturant, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnTrackOrders))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnAddToCart))
                         .addGap(40, 40, 40)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(145, Short.MAX_VALUE))
+                .addContainerGap(144, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -253,8 +267,16 @@ public class CustomerAreaJPanel extends javax.swing.JPanel {
         
     }//GEN-LAST:event_comboxResturantActionPerformed
 
+    private void btnTrackOrdersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTrackOrdersActionPerformed
+        // TODO add your handling code here:
+        JPanel trackOrderJPanel = new TrackOrderJPanel(userProcessContainer,dB4OUtil,userAccount);
+        userProcessContainer.add("trackOrder",trackOrderJPanel);
+        CardLayout cardLayout = (CardLayout)userProcessContainer.getLayout();
+        cardLayout.next(this.userProcessContainer);
+    }//GEN-LAST:event_btnTrackOrdersActionPerformed
+
     public void initialize(){
-        
+        this.ecoSystem = dB4OUtil.retrieveSystem("");
         comboxResturant.removeAllItems();
         for(Restaurant r: this.ecoSystem.getRestaurantDirectory().getRestaurants()){
             comboxResturant.addItem(r);
@@ -300,6 +322,7 @@ public class CustomerAreaJPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddToCart;
     private javax.swing.JButton btnSubmitCart;
+    private javax.swing.JButton btnTrackOrders;
     private javax.swing.JComboBox comboxResturant;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

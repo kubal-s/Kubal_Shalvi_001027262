@@ -12,7 +12,9 @@ import Business.UserAccount.UserAccount;
 import Business.WorkQueue.LabTestWorkRequest;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
+import java.util.Date;
 import java.util.Map;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -45,13 +47,20 @@ public class DeliveryManWorkAreaJPanel extends javax.swing.JPanel {
     public void populateTable(){
         DefaultTableModel dtm = (DefaultTableModel)tblWorkDirectory.getModel();
         dtm.setRowCount(0);
+        for(UserAccount ua : this.ecoSystem.getUserAccountDirectory().getUserAccountList()){
+            if(ua.equals(this.userAccount)){
+                this.userAccount = ua;
+                break;
+            }
+        }
         for(WorkRequest wr: this.userAccount.getWorkQueue().getWorkRequestList()){
             Object[] row = new Object[dtm.getColumnCount()];
-            row[0] = wr.getSender();
+            row[0] = wr;
             row[1] = wr.getReceiver();
             row[2]= wr.getRequestDate();
             row[3] =wr.getResolveDate();
-            row[4]=wr.getStatus();
+            row[4] =wr.getMessage();
+            row[5]=wr.getStatus();
             //System.out.println(em);
             dtm.addRow(row);
         } 
@@ -74,20 +83,20 @@ public class DeliveryManWorkAreaJPanel extends javax.swing.JPanel {
 
         tblWorkDirectory.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Sender", "Receiver", "Requested Date", "Resolve Date", "Status"
+                "Sender", "Receiver", "Requested Date", "Resolve Date", "Message", "Status"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -105,6 +114,7 @@ public class DeliveryManWorkAreaJPanel extends javax.swing.JPanel {
             tblWorkDirectory.getColumnModel().getColumn(2).setResizable(false);
             tblWorkDirectory.getColumnModel().getColumn(3).setResizable(false);
             tblWorkDirectory.getColumnModel().getColumn(4).setResizable(false);
+            tblWorkDirectory.getColumnModel().getColumn(5).setResizable(false);
         }
 
         add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, 570, 110));
@@ -119,7 +129,32 @@ public class DeliveryManWorkAreaJPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void processJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_processJButtonActionPerformed
-        
+        int selectedRow = tblWorkDirectory.getSelectedRow();
+        if(selectedRow>=0){
+            WorkRequest workRequest = (WorkRequest)tblWorkDirectory.getValueAt(selectedRow, 0);
+            if(!workRequest.getStatus().equals("Delivered")){
+                for(WorkRequest wr:this.ecoSystem.getWorkQueue().getWorkRequestList()){
+                    if(wr.equals(workRequest)){
+                        wr.setStatus("Delivered");
+                        wr.setResolveDate(new Date());
+                        break;
+                    }
+                }
+                dB4OUtil.storeSystem(ecoSystem);
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Please select order that needs to be delivered!!");
+                return;
+            }
+
+            dB4OUtil.storeSystem(ecoSystem);
+            populateTable();
+            JOptionPane.showMessageDialog(null, "Order delivered successfully!");
+            return;
+        }else{
+            JOptionPane.showMessageDialog(null, "Please select a Row!!");
+            return;
+        }
         
     }//GEN-LAST:event_processJButtonActionPerformed
 

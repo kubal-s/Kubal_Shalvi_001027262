@@ -156,6 +156,7 @@ public class ManageOrdersJPanel extends javax.swing.JPanel {
             cardLayout.next(this.userProcessContainer);
         }else{
             JOptionPane.showMessageDialog(null, "Please select a Row!!");
+            return;
         }
     }//GEN-LAST:event_btnProcessRequestActionPerformed
     
