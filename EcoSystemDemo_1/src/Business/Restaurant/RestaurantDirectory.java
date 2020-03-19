@@ -35,4 +35,13 @@ public class RestaurantDirectory {
     public void removeRestaurant(Restaurant restaurant){
         this.restaurants.remove(restaurant);
     }
+    
+    public Restaurant getRestaurantByName(String restaurantName){
+        for(Restaurant r: restaurants){
+            if(r.getName().equals(restaurantName)){
+                return r;
+            }
+        }
+        return null;
+    }
 }

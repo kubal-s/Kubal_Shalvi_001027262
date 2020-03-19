@@ -131,7 +131,7 @@ public class DeliveryManWorkAreaJPanel extends javax.swing.JPanel {
         }
         
         WorkRequest request = (WorkRequest)workRequestJTable.getValueAt(selectedRow, 0);
-        request.setReceiver(userAccount);
+       // request.setReceiver(userAccount);
         request.setStatus("Pending");
         populateTable();
         

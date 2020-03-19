@@ -7,6 +7,7 @@ package userinterface.RestaurantAdminRole;
 
 import Business.DB4OUtil.DB4OUtil;
 import Business.EcoSystem;
+import Business.Restaurant.Item;
 import Business.Restaurant.Menu;
 import Business.Restaurant.Restaurant;
 import java.awt.CardLayout;
@@ -122,9 +123,9 @@ public class ManageMenuJPanel extends javax.swing.JPanel {
                         .addGap(22, 22, 22)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnAddItemToMenu, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnDeleteMenuItem, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnUpdateMenuItem, javax.swing.GroupLayout.Alignment.TRAILING))))
+                            .addComponent(btnAddItemToMenu)
+                            .addComponent(btnDeleteMenuItem)
+                            .addComponent(btnUpdateMenuItem))))
                 .addContainerGap(30, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -148,6 +149,7 @@ public class ManageMenuJPanel extends javax.swing.JPanel {
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // TODO add your handling code here:
+        
         this.userProcessContainer.remove(this);
         CardLayout layout =(CardLayout) this.userProcessContainer.getLayout();
         layout.previous(userProcessContainer);
@@ -160,11 +162,12 @@ public class ManageMenuJPanel extends javax.swing.JPanel {
             int selectionButton = JOptionPane.YES_NO_OPTION;
             int selectionResult = JOptionPane.showConfirmDialog(null, "Are you sure to delete??","Warning",selectionButton);
             if(selectionResult == JOptionPane.YES_OPTION){
-                String itemName = (String)tblDirectory.getValueAt(selectedRow, 0);
+                Item item = (Item)tblDirectory.getValueAt(selectedRow, 0);
                 for(Restaurant r:this.ecoSystem.getRestaurantDirectory().getRestaurants()){
                     if(r.getName().equals(restaurant.getName())){
-                        System.out.println("delted item");
-                        r.getMenu().deleteMenuItem(itemName);
+                        //System.out.println("delted item");
+                        r.getMenu().removeItem(item);
+                        //r.getMenu().deleteMenuItem(itemName);
                         break;
                     }
                 }                
@@ -188,8 +191,9 @@ public class ManageMenuJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         int selectedRow = tblDirectory.getSelectedRow();
         if(selectedRow>=0){
-            String itemName = (String)tblDirectory.getValueAt(selectedRow, 0);
-            JPanel updateMenuJPanel = new UpdateMenuJPanel(userProcessContainer,dB4OUtil,restaurant,itemName);
+            String selectedItemName = ((Item)tblDirectory.getValueAt(selectedRow, 0)).getName();
+            //Item selectedItem = restaurant.getMenu().getItemFromName(selectedItemName);
+            JPanel updateMenuJPanel = new UpdateMenuJPanel(userProcessContainer,dB4OUtil,restaurant.getName(),selectedItemName);
             userProcessContainer.add("updateMenuItem",updateMenuJPanel);
             CardLayout cardLayout = (CardLayout)userProcessContainer.getLayout();
             cardLayout.next(this.userProcessContainer);
@@ -205,16 +209,19 @@ public class ManageMenuJPanel extends javax.swing.JPanel {
         Restaurant currentResturant = null;
         this.ecoSystem = dB4OUtil.retrieveSystem("manage menu");        
         for(Restaurant r:this.ecoSystem.getRestaurantDirectory().getRestaurants()){
+            //System.out.println(r.getMenu().getItems());
+            //System.out.println(restaurant.getMenu().getItems());
             if(r.getName().equals(restaurant.getName())){
                 currentResturant = r;
                 break;
             }
         } 
-        
-        for(Map.Entry<String,Double> em: currentResturant.getMenu().getMenuitem().entrySet()){
+        System.out.println(currentResturant.getMenu().getItems().size());
+        for(Item i: currentResturant.getMenu().getItems()){
+            System.out.println(i.getName());
             Object[] row = new Object[dtm.getColumnCount()];
-            row[0]=em.getKey();
-            row[1]=em.getValue();
+            row[0]=i;
+            row[1]=i.getPrice();
             dtm.addRow(row);
         }
     }
@@ -224,10 +231,10 @@ public class ManageMenuJPanel extends javax.swing.JPanel {
         DefaultTableModel dtm = (DefaultTableModel)tblDirectory.getModel();
         dtm.setRowCount(0);
         this.ecoSystem = dB4OUtil.retrieveSystem("manage menu");
-        for(Map.Entry<String,Double> em: restaurant.getMenu().getMenuitem().entrySet()){
+        for(Item i: restaurant.getMenu().getItems()){
             Object[] row = new Object[dtm.getColumnCount()];
-            row[0]=em.getKey();
-            row[1]=em.getValue();
+            row[0]=i;
+            row[1]=i.getPrice();
             dtm.addRow(row);
         }
     }

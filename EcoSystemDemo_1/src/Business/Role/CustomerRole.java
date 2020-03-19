@@ -26,7 +26,7 @@ public class CustomerRole extends Role{
     
     
     public JPanel createWorkArea(JPanel userProcessContainer, UserAccount account, DB4OUtil dB4OUtil) {
-        return new CustomerAreaJPanel(userProcessContainer, account);
+        return new CustomerAreaJPanel(userProcessContainer, account,dB4OUtil);
     }
     
     

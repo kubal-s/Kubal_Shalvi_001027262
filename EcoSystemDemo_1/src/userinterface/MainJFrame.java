@@ -143,6 +143,10 @@ public class MainJFrame extends javax.swing.JFrame {
                 break;
             }
         }
+        if(roleOfCurrentUser == null){
+            JOptionPane.showMessageDialog(null, "Invalid credentials!");
+            return;
+        }
         JPanel createWorkArea = roleOfCurrentUser.createWorkArea(container, currentUserAccount, dB4OUtil);
         container.add("workArea",createWorkArea);
         CardLayout cardLayout = (CardLayout)container.getLayout();

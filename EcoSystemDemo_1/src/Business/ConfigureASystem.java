@@ -1,5 +1,6 @@
 package Business;
 
+import Business.Restaurant.Item;
 import Business.User.User;
 import Business.Restaurant.Menu;
 import Business.Restaurant.Restaurant;
@@ -56,17 +57,26 @@ public class ConfigureASystem {
         UserAccount ua6 = system.getUserAccountDirectory().createUserAccount("resadmin2", "resadmin2", user6, new AdminRole());
        //create one resturant
         Menu menu1 = new Menu();
-        menu1.addItemToMenu("rice",7.0);
-        menu1.addItemToMenu("curry",12.0);
+        Item i1 = new Item("rice",7.0);
+        Item i2 = new Item("curry",12.0);
+        menu1.addItem(i1);
+        menu1.addItem(i2);
+        //menu1.addItemToMenu("rice",7.0);
+        //menu1.addItemToMenu("curry",12.0);
         
         Restaurant restaurant1 = system.getRestaurantDirectory().createRestaurant(menu1, "Indian Curry", ua3);
         
         Menu menu2 = new Menu();
-        menu2.addItemToMenu("cheese pizza",10.0);
-        menu2.addItemToMenu("chicken pizza",14.0);
+        Item i3 = new Item("cheese pizza",10.0);
+        Item i4 = new Item("chicken pizza",14.0);    
+        menu2.addItem(i3);
+        menu2.addItem(i4);
+        
+        //menu2.addItemToMenu("cheese pizza",10.0);
+        //menu2.addItemToMenu("chicken pizza",14.0);
         
         Restaurant restaurant2 = system.getRestaurantDirectory().createRestaurant(menu2, "Pizza Hut", ua6);
         return system;
     }
     
-}
+}   

@@ -4,24 +4,30 @@
  */
 package Business.WorkQueue;
 
+import Business.Restaurant.Item;
+import Business.Restaurant.Restaurant;
 import Business.UserAccount.UserAccount;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
  * @author raunak
  */
-public abstract class WorkRequest {
+public class WorkRequest {
 
     private String message;
     private UserAccount sender;
-    private UserAccount receiver;
+    private Restaurant receiver;
     private String status;
     private Date requestDate;
     private Date resolveDate;
+    private Map<Item,Integer> cart;
     
     public WorkRequest(){
         requestDate = new Date();
+        cart = new HashMap<Item, Integer>();
     }
 
     public String getMessage() {
@@ -40,11 +46,11 @@ public abstract class WorkRequest {
         this.sender = sender;
     }
 
-    public UserAccount getReceiver() {
+    public Restaurant getReceiver() {
         return receiver;
     }
 
-    public void setReceiver(UserAccount receiver) {
+    public void setReceiver(Restaurant receiver) {
         this.receiver = receiver;
     }
 
@@ -71,4 +77,27 @@ public abstract class WorkRequest {
     public void setResolveDate(Date resolveDate) {
         this.resolveDate = resolveDate;
     }
+
+    public Map<Item, Integer> getCart() {
+        return cart;
+    }
+
+    public void setCart(Map<Item, Integer> cart) {
+        this.cart = cart;
+    }
+    public void addToCart(Item item, Integer quantity){
+        if(cart.get(item)!=null){
+            int oldQuantity = cart.get(item);
+            int newQuantity = oldQuantity + quantity;
+            cart.put(item, newQuantity);
+        }
+        else{
+            cart.put(item, quantity);
+        }
+    }
+    @Override
+    public String toString() {
+        return sender.toString(); //To change body of generated methods, choose Tools | Templates.
+    }
+    
 }

@@ -33,7 +33,7 @@ public class AdminWorkAreaJPanel extends javax.swing.JPanel {
                 break;
             }
         }
-        lblResturantNanme.setText(this.restaurant.getName());
+        populate(restaurant);
     }
     
     /** This method is called from within the constructor to
@@ -45,9 +45,9 @@ public class AdminWorkAreaJPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        userJButton = new javax.swing.JButton();
+        btnManageRestaurantInfo = new javax.swing.JButton();
         btnManageMenu = new javax.swing.JButton();
-        manageOrganizationJButton = new javax.swing.JButton();
+        btnManageOrders = new javax.swing.JButton();
         enterpriseLabel = new javax.swing.JLabel();
         lblResturantNanme = new javax.swing.JLabel();
 
@@ -57,13 +57,13 @@ public class AdminWorkAreaJPanel extends javax.swing.JPanel {
         jLabel1.setText("My Work Area -Adminstrative Role");
         add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 40, -1, -1));
 
-        userJButton.setText("Manage Restaurant Info");
-        userJButton.addActionListener(new java.awt.event.ActionListener() {
+        btnManageRestaurantInfo.setText("Manage Restaurant Info");
+        btnManageRestaurantInfo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                userJButtonActionPerformed(evt);
+                btnManageRestaurantInfoActionPerformed(evt);
             }
         });
-        add(userJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 230, 180, -1));
+        add(btnManageRestaurantInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 230, 180, -1));
 
         btnManageMenu.setText("Manage menu");
         btnManageMenu.addActionListener(new java.awt.event.ActionListener() {
@@ -71,28 +71,32 @@ public class AdminWorkAreaJPanel extends javax.swing.JPanel {
                 btnManageMenuActionPerformed(evt);
             }
         });
-        add(btnManageMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 180, 150, -1));
+        add(btnManageMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 190, 150, -1));
 
-        manageOrganizationJButton.setText("Manage Orders");
-        manageOrganizationJButton.addActionListener(new java.awt.event.ActionListener() {
+        btnManageOrders.setText("Manage Orders");
+        btnManageOrders.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                manageOrganizationJButtonActionPerformed(evt);
+                btnManageOrdersActionPerformed(evt);
             }
         });
-        add(manageOrganizationJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 130, -1, -1));
+        add(btnManageOrders, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 150, -1, -1));
 
         enterpriseLabel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         enterpriseLabel.setText("Restaurant :");
         add(enterpriseLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 90, 120, 30));
 
         lblResturantNanme.setText("<value>");
-        add(lblResturantNanme, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 100, 130, -1));
+        add(lblResturantNanme, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 100, 130, -1));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void userJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userJButtonActionPerformed
+    private void btnManageRestaurantInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageRestaurantInfoActionPerformed
         // TODO add your handling code here:
+        JPanel manageRestaurantInfoJPanel = new ManageRestaurantInfoJPanel(userProcessContainer,dB4OUtil,restaurant);
+        userProcessContainer.add("manageRestaurantInfo",manageRestaurantInfoJPanel);
+        CardLayout cardLayout = (CardLayout)userProcessContainer.getLayout();
+        cardLayout.next(this.userProcessContainer);
         
-    }//GEN-LAST:event_userJButtonActionPerformed
+    }//GEN-LAST:event_btnManageRestaurantInfoActionPerformed
 
     private void btnManageMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageMenuActionPerformed
         JPanel manageMenu = new ManageMenuJPanel(userProcessContainer,dB4OUtil,restaurant);
@@ -101,18 +105,24 @@ public class AdminWorkAreaJPanel extends javax.swing.JPanel {
         cardLayout.next(this.userProcessContainer);
     }//GEN-LAST:event_btnManageMenuActionPerformed
 
-    private void manageOrganizationJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageOrganizationJButtonActionPerformed
-
-    }//GEN-LAST:event_manageOrganizationJButtonActionPerformed
-    
+    private void btnManageOrdersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageOrdersActionPerformed
+        JPanel manageOrdersJPanel = new ManageOrdersJPanel(userProcessContainer,dB4OUtil,restaurant);
+        userProcessContainer.add("ManageOrders",manageOrdersJPanel);
+        CardLayout cardLayout = (CardLayout)userProcessContainer.getLayout();
+        cardLayout.next(this.userProcessContainer);
+    }//GEN-LAST:event_btnManageOrdersActionPerformed
+    public  void populate(Restaurant r){
+        this.restaurant = r;
+        lblResturantNanme.setText(this.restaurant.getName());
+    }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnManageMenu;
+    private javax.swing.JButton btnManageOrders;
+    private javax.swing.JButton btnManageRestaurantInfo;
     private javax.swing.JLabel enterpriseLabel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblResturantNanme;
-    private javax.swing.JButton manageOrganizationJButton;
-    private javax.swing.JButton userJButton;
     // End of variables declaration//GEN-END:variables
     
 }

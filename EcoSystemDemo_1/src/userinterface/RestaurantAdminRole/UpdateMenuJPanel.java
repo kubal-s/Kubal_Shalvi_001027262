@@ -3,6 +3,7 @@ package userinterface.RestaurantAdminRole;
 
 import Business.DB4OUtil.DB4OUtil;
 import Business.EcoSystem;
+import Business.Restaurant.Item;
 import Business.Restaurant.Menu;
 import Business.Restaurant.Restaurant;
 import java.awt.CardLayout;
@@ -32,24 +33,19 @@ public class UpdateMenuJPanel extends javax.swing.JPanel {
     private Restaurant restaurant;
     private Menu menu;
     private DB4OUtil  dB4OUtil;
-    private String oldItemName;
-    public UpdateMenuJPanel(JPanel userProcessContainer,DB4OUtil dB4OUtil, Restaurant restaurant,String itemName) {
+    private Item item;
+    public UpdateMenuJPanel(JPanel userProcessContainer,DB4OUtil dB4OUtil,String restaurantName, String itemName) {
         initComponents();       
         this.userProcessContainer = userProcessContainer;
         this.dB4OUtil = dB4OUtil;
         this.ecoSystem = dB4OUtil.retrieveSystem("update menu");
-        this.restaurant = restaurant;
-        lblRestuarantName.setText(this.restaurant.getName());
+        this.restaurant = ecoSystem.getRestaurantDirectory().getRestaurantByName(restaurantName);
+        lblRestuarantName.setText(restaurantName);
         this.menu = this.restaurant.getMenu();
-        this.oldItemName = itemName;
-        for(Map.Entry<String,Double> em: restaurant.getMenu().getMenuitem().entrySet()){
-            if(itemName.equals(em.getKey())){
-                txtItemName.setText(em.getKey());
-                txtItemPrice.setText(String.valueOf(em.getValue()));
-                break;
-            }
-           
-        }
+        this.item = menu.getItemFromName(itemName);
+        txtItemName.setText(item.getName());
+        txtItemPrice.setText(String.valueOf(item.getPrice()));
+
     }
 
     /**
@@ -96,24 +92,21 @@ public class UpdateMenuJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 34, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtItemName, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtItemPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(52, 52, 52)
-                                .addComponent(btnUpdateMenuItem))))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnBack)
-                        .addGap(113, 113, 113)
-                        .addComponent(lblRestuarantName)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblRestuarantName))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(btnUpdateMenuItem)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtItemName, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtItemPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(156, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -122,20 +115,17 @@ public class UpdateMenuJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnBack)
                     .addComponent(lblRestuarantName))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(90, 90, 90)
-                        .addComponent(btnUpdateMenuItem))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtItemName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtItemPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2))))
-                .addContainerGap(144, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtItemName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtItemPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnUpdateMenuItem)
+                .addContainerGap(164, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -159,19 +149,32 @@ public class UpdateMenuJPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null,"Please enter item name!");
             return;
         }
+        for(Item i: this.menu.getItems()){
+            if(i.getName().equals(txtItemName.getText())&&!item.getName().equals(txtItemName.getText())){
+                JOptionPane.showMessageDialog(null, "Item name exists! Enter different name");
+                return;
+            }
+        }
         if(txtItemPrice.getText().isEmpty()){
             JOptionPane.showMessageDialog(null,"Please enter item price!");
             return;
         }
         try {
             Double price = (Double)Double.parseDouble(txtItemPrice.getText());
-            //Menu menu = restaurant.getMenu();
-            //menu.addItemToMenu(txtItemName.getText(), price);
-            this.menu.updateMenuItem(this.oldItemName,txtItemName.getText(), price);
-            JOptionPane.showMessageDialog(null,"updated item to menu for resturant "+restaurant.getName()+" successfully!");
+            //Item i = new Item(txtItemName.getText(),price);
+            
+            this.item.setName(txtItemName.getText());
+            this.item.setPrice(price);
+            
+            //this.menu.update(item,i);
+            //restaurant.setMenu(menu);
+            //this.menu.updateMenuItem(this.oldItemName,txtItemName.getText(), price);
+            dB4OUtil.storeSystem(ecoSystem);
+            JOptionPane.showMessageDialog(null,"updated item to menu for resturant "+this.restaurant.getName()+" successfully!");
             return;
             //business.getRestaurantDirectory().
         } catch (Exception e) {
+            e.printStackTrace();
             JOptionPane.showMessageDialog(null,"Enter item price in number!");
             return;
         }
